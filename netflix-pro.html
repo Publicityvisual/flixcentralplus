@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlixCentralPlus - Ve películas y series online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Netflix+Sans:wght@400;500;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Netflix';
+            src: local('Netflix Sans'), local('Helvetica Neue'), local('Helvetica'), local('Arial'), sans-serif;
+        }
+
+        :root {
+            --netflix-red: #e50914;
+            --netflix-red-hover: #f40612;
+            --netflix-black: #000000;
+            --netflix-dark: #141414;
+            --netflix-gray: #808080;
+            --netflix-light: #e5e5e5;
+            --netflix-white: #ffffff;
+            --netflix-green: #46d369;
+            --netflix-blue: #0071eb;
+            --gradient-overlay: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--netflix-black);
+            color: var(--netflix-white);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* HERO SECTION - NETFLIX STYLE */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--netflix-black);
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-video-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 0.6;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.3) 100%),
+                linear-gradient(to right, rgba(0,0,0,0.8) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 24px 48px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, transparent);
+            transition: all 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0,0,0,0.95);
+            padding: 20px 48px;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--netflix-red);
+            text-decoration: none;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .language-select {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: var(--netflix-white);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--netflix-red);
+            color: var(--netflix-white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: var(--netflix-red-hover);
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* HERO CONTENT */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 200px 48px 100px;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 26px;
+            font-weight: 400;
+            margin-bottom: 32px;
+        }
+
+        .hero-description {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 24px;
+        }
+
+        /* EMAIL FORM */
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .email-input-wrapper {
+            display: flex;
+            width: 100%;
+            gap: 8px;
+        }
+
+        .email-input {
+            flex: 1;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: var(--netflix-white);
+            padding: 20px 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .email-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .email-input:focus {
+            outline: 2px solid var(--netflix-white);
+            background: rgba(0,0,0,0.8);
+        }
+
+        .hero-disclaimer {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 16px;
+        }
+
+        /* FEATURE CARDS - NETFLIX STYLE */
+        .feature-section {
+            padding: 72px 48px;
+            border-bottom: 8px solid #222;
+            background: var(--netflix-black);
+        }
+
+        .feature-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .feature-container.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-title {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .feature-description {
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--netflix-light);
+            line-height: 1.5;
+        }
+
+        .feature-media {
+            flex: 1;
+            position: relative;
+        }
+
+        .feature-image {
+            width: 100%;
+            border-radius: 8px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-video-container {
+            position: absolute;
+            top: 20%;
+            left: 13%;
+            width: 74%;
+            height: 55%;
+            z-index: 1;
+        }
+
+        .feature-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ANIMATED CARD */
+        .animated-card {
+            position: absolute;
+            bottom: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--netflix-black);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 280px;
+            z-index: 3;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .animated-card-image {
+            height: 72px;
+            border-radius: 4px;
+        }
+
+        .animated-card-text {
+            flex: 1;
+        }
+
+        .animated-card-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .animated-card-subtitle {
+            font-size: 14px;
+            color: #0071eb;
+        }
+
+        .download-icon {
+            width: 48px;
+            height: 48px;
+        }
+
+        /* FAQ SECTION */
+        .faq-section {
+            padding: 72px 48px;
+            border-bottom: 8px solid #222;
+            background: var(--netflix-black);
+        }
+
+        .faq-container {
+            max-width: 815px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            font-size: 48px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .faq-item {
+            background: #2d2d2d;
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 24px;
+            background: #2d2d2d;
+            border: none;
+            color: var(--netflix-white);
+            font-size: 24px;
+            font-weight: 400;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .faq-question:hover {
+            background: #414141;
+        }
+
+        .faq-icon {
+            width: 36px;
+            height: 36px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .faq-icon::before,
+        .faq-icon::after {
+            content: '';
+            position: absolute;
+            background: var(--netflix-white);
+            transition: all 0.3s;
+        }
+
+        .faq-icon::before {
+            width: 24px;
+            height: 2px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-icon::after {
+            width: 2px;
+            height: 24px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 24px 24px;
+            font-size: 24px;
+            line-height: 1.5;
+        }
+
+        .faq-cta {
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .faq-cta-text {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 72px 48px 48px;
+            background: var(--netflix-black);
+        }
+
+        .footer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer-call {
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .footer-call a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .footer-link {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--netflix-white);
+            text-decoration: underline;
+        }
+
+        .footer-language {
+            margin: 24px 0;
+        }
+
+        .footer-country {
+            font-size: 14px;
+            margin-top: 24px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 24px 32px;
+            }
+
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .feature-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .feature-container.reverse {
+                flex-direction: column;
+            }
+
+            .feature-title {
+                font-size: 32px;
+            }
+
+            .feature-description {
+                font-size: 18px;
+            }
+
+            .footer-links {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 20px 24px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .nav-actions {
+                gap: 12px;
+            }
+
+            .language-select {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .btn-primary {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            .hero-content {
+                padding: 150px 24px 60px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .btn-large {
+                padding: 12px 24px;
+                font-size: 18px;
+            }
+
+            .email-input-wrapper {
+                flex-direction: column;
+            }
+
+            .feature-section {
+                padding: 48px 24px;
+            }
+
+            .feature-title {
+                font-size: 28px;
+            }
+
+            .faq-section {
+                padding: 48px 24px;
+            }
+
+            .faq-title {
+                font-size: 28px;
+            }
+
+            .faq-question,
+            .faq-answer-content {
+                font-size: 18px;
+            }
+
+            .footer {
+                padding: 48px 24px;
+            }
+
+            .footer-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-links {
+                grid-template-columns: 1fr;
+            }
+
+            .animated-card {
+                min-width: 220px;
+                padding: 6px 12px;
+            }
+
+            .animated-card-image {
+                height: 50px;
+            }
+
+            .animated-card-title {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="hero-video-container">
+                <img src="https://assets.nflxext.com/ffe/siteui/vlv3/4d2c5846-0b9e-4f25-9f12-960b31c0c1b7/web/MX-es-20240930-TRIFECTA-perspective_2a3d46ae-8bba-4ee0-b34b-b955ac643cfe_large.jpg" 
+                     alt="FlixCentral Background" 
+                     class="hero-video"
+                     style="opacity: 0.5;">
+            </div>
+            <div class="hero-gradient"></div>
+        </div>
+
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <a href="#" class="logo">FLIXCENTRAL</a>
+                <div class="nav-actions">
+                    <select class="language-select" aria-label="Seleccionar idioma">
+                        <option value="es">🌐 Español</option>
+                        <option value="en">🌐 English</option>
+                    </select>
+                    <a href="#" class="btn-primary">Iniciar sesión</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="hero-content">
+            <h1 class="hero-title">Películas y series ilimitadas y mucho más</h1>
+            <p class="hero-subtitle">Disfruta donde quieras. Cancela cuando quieras.</p>
+            <p class="hero-description">¿Quieres ver FlixCentralPlus ya? Ingresa tu email para crear una cuenta o reiniciar tu membresía.</p>
+            
+            <form class="email-form">
+                <div class="email-input-wrapper">
+                    <input type="email" class="email-input" placeholder="Email" aria-label="Email" required>
+                    <button type="submit" class="btn-primary btn-large">
+                        Comenzar
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FEATURE 1: TV -->
+    <section class="feature-section">
+        <div class="feature-container">
+            <div class="feature-text">
+                <h2 class="feature-title">Disfruta en tu TV</h2>
+                <p class="feature-description">Ve en Smart TV, PlayStation, Xbox, Chromecast, Apple TV, reproductores Blu-ray y más.</p>
+            </div>
+            <div class="feature-media">
+                <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/tv.png" 
+                     alt="TV" class="feature-image">
+                <div class="feature-video-container">
+                    <video class="feature-video" autoplay muted loop playsinline>
+                        <source src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/video-tv-0819.m4v" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURE 2: Download -->
+    <section class="feature-section">
+        <div class="feature-container reverse">
+            <div class="feature-text">
+                <h2 class="feature-title">Descarga tus series para verlas offline</h2>
+                <p class="feature-description">Guarda tu contenido favorito y siempre tendrás algo para ver.</p>
+            </div>
+            <div class="feature-media">
+                <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/mobile-0819.jpg" 
+                     alt="Mobile" class="feature-image">
+                <div class="animated-card">
+                    <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/boxshot.png" 
+                         alt="Movie" class="animated-card-image">
+                    <div class="animated-card-text">
+                        <div class="animated-card-title">El Padrino</div>
+                        <div class="animated-card-subtitle">Descargando...</div>
+                    </div>
+                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="#0071eb" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURE 3: Everywhere -->
+    <section class="feature-section">
+        <div class="feature-container">
+            <div class="feature-text">
+                <h2 class="feature-title">Disfruta donde quieras</h2>
+                <p class="feature-description">Películas y series ilimitadas en tu teléfono, tablet, laptop y TV sin costo extra.</p>
+            </div>
+            <div class="feature-media">
+                <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/device-pile.png" 
+                     alt="Devices" class="feature-image">
+                <div class="feature-video-container" style="top: 10%; height: 50%;">
+                    <video class="feature-video" autoplay muted loop playsinline>
+                        <source src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/video-devices.m4v" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURE 4: Kids -->
+    <section class="feature-section">
+        <div class="feature-container reverse">
+            <div class="feature-text">
+                <h2 class="feature-title">Crea perfiles para niños</h2>
+                <p class="feature-description">Los niños vivirán aventuras con sus personajes favoritos en un espacio diseñado exclusivamente para ellos, gratis con tu membresía.</p>
+            </div>
+            <div class="feature-media">
+                <img src="https://occ-0-2433-2432.1.nflxso.net/dnm/api/v6/19OhWN3dppOl7wshWwN8U7xK0QrE/mexico-kids/AAAABf46yXT-WqtDpboTnd3dtLI7DyRfgbmaVQq3gHHfF_z2xEq7fKqV3eQD6bqt9R5F8hQ8pyDl4q0Z7pSowYwZVOFnzDnB8CVjF1.png?r=fdd" 
+                     alt="Kids" class="feature-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2 class="faq-title">Preguntas frecuentes</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        ¿Qué es FlixCentralPlus?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            FlixCentralPlus es un servicio de streaming que ofrece una gran variedad de películas, series y documentales premiados en miles de dispositivos conectados a internet.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        ¿Cuánto cuesta FlixCentralPlus?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Disfruta FlixCentralPlus en tu smartphone, tablet, Smart TV, laptop o dispositivo de streaming por una tarifa plana mensual muy accesible.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        ¿Dónde puedo ver FlixCentralPlus?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Disfruta donde quieras, cuando quieras. Inicia sesión en tu cuenta para ver contenido al instante desde tu computadora o cualquier dispositivo.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        ¿Cómo cancelo?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            FlixCentralPlus es flexible. Sin contratos molestos ni compromisos. Cancela la membresía online con solo dos clics.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        ¿Qué puedo ver en FlixCentralPlus?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            FlixCentralPlus tiene un amplio catálogo de películas, series, documentales, animes y contenido original premiado.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        ¿Es bueno FlixCentralPlus para los niños?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            La experiencia para niños está incluida en la membresía para que los padres tengan el control mientras los peques disfrutan.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-cta">
+                <p class="faq-cta-text">¿Quieres ver FlixCentralPlus ya? Ingresa tu email para crear una cuenta o reiniciar tu membresía.</p>
+                <form class="email-form" style="margin: 0 auto;">
+                    <div class="email-input-wrapper">
+                        <input type="email" class="email-input" placeholder="Email" aria-label="Email" required>
+                        <button type="submit" class="btn-primary btn-large">
+                            Comenzar
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-call">¿Preguntas? Llama al <a href="tel:800-123-4567">800-123-4567</a></p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Preguntas frecuentes</a>
+                <a href="#" class="footer-link">Centro de ayuda</a>
+                <a href="#" class="footer-link">Cuenta</a>
+                <a href="#" class="footer-link">Prensa</a>
+                <a href="#" class="footer-link">Relaciones con inversionistas</a>
+                <a href="#" class="footer-link">Empleo</a>
+                <a href="#" class="footer-link">Formas de ver</a>
+                <a href="#" class="footer-link">Términos de uso</a>
+                <a href="#" class="footer-link">Privacidad</a>
+                <a href="#" class="footer-link">Preferencias de cookies</a>
+                <a href="#" class="footer-link">Información corporativa</a>
+                <a href="#" class="footer-link">Contáctanos</a>
+                <a href="#" class="footer-link">Velocidad de prueba</a>
+                <a href="#" class="footer-link">Avisos legales</a>
+                <a href="#" class="footer-link">Solo en FlixCentralPlus</a>
+            </div>
+            <div class="footer-language">
+                <select class="language-select" style="background: transparent; border-color: rgba(255,255,255,0.4);">
+                    <option value="es">🌐 Español</option>
+                    <option value="en">🌐 English</option>
+                </select>
+            </div>
+            <p class="footer-country">FlixCentralPlus México</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let ticking = false;
+
+        function updateNavbar() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateNavbar);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                });
+                
+                // Open current if wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                    question.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // Email form
+        document.querySelectorAll('.email-form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = form.querySelector('.email-input').value;
+                if (email) {
+                    alert('¡Bienvenido a FlixCentralPlus! Redirigiendo...');
+                }
+            });
+        });
+
+        // Smooth scroll for any anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlixCentralPlus - Películas y Series Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --nf-red: #e50914;
+            --nf-red-dark: #b20710;
+            --nf-black: #000000;
+            --nf-dark: #141414;
+            --nf-gray: #808080;
+            --nf-light: #e5e5e5;
+            --nf-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--nf-black);
+            color: var(--nf-white);
+            line-height: 1.4;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 4%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, transparent);
+            transition: all 0.4s;
+        }
+
+        .navbar.scrolled {
+            background: var(--nf-black);
+            padding: 15px 4%;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--nf-red);
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .logo span { color: var(--nf-white); font-weight: 700; }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--nf-light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover { color: var(--nf-gray); }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-btn, .notif-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .login-btn {
+            background: var(--nf-red);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover { background: var(--nf-red-dark); transform: scale(1.05); }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            height: 90vh;
+            min-height: 700px;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 4%;
+            padding-bottom: 180px;
+            background: 
+                linear-gradient(to top, var(--nf-black) 0%, transparent 60%),
+                linear-gradient(to right, rgba(0,0,0,0.9) 0%, transparent 50%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23141" width="1920" height="1080"/><circle fill="%23222" cx="200" cy="200" r="300"/><circle fill="%231a1a1a" cx="1700" cy="800" r="400"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            z-index: 2;
+        }
+
+        .hero-rank {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .rank-number {
+            font-size: 80px;
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 3px var(--nf-gray);
+            line-height: 1;
+        }
+
+        .rank-text {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .match-score {
+            color: #46d369;
+            font-weight: 700;
+        }
+
+        .age-badge {
+            border: 1px solid var(--nf-gray);
+            padding: 2px 8px;
+            font-size: 13px;
+        }
+
+        .hero-desc {
+            font-size: 17px;
+            color: var(--nf-light);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            max-width: 550px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .hero-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-play { background: white; color: black; }
+        .btn-play:hover { background: rgba(255,255,255,0.8); }
+        .btn-more { background: rgba(109,109,110,0.7); color: white; backdrop-filter: blur(10px); }
+        .btn-more:hover { background: rgba(109,109,110,0.5); }
+
+        /* MOVIE SECTIONS */
+        .movie-section {
+            padding: 30px 4%;
+            position: relative;
+            z-index: 10;
+            margin-top: -120px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .section-title:hover { color: var(--nf-gray); }
+
+        .see-all {
+            font-size: 12px;
+            color: var(--nf-gray);
+            opacity: 0;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .movie-section:hover .see-all { opacity: 1; }
+
+        /* CAROUSEL */
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+        }
+
+        .carousel::-webkit-scrollbar { display: none; }
+
+        .carousel-nav {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 60px;
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .carousel-wrapper:hover .carousel-nav { opacity: 1; }
+
+        .carousel-nav:hover { background: rgba(0,0,0,0.7); }
+
+        .nav-prev { left: 0; border-radius: 0 4px 4px 0; }
+        .nav-next { right: 0; border-radius: 4px 0 0 4px; }
+
+        /* MOVIE CARD - NETFLIX STYLE */
+        .movie-card {
+            flex: 0 0 auto;
+            width: 16%;
+            min-width: 200px;
+            aspect-ratio: 16/9;
+            border-radius: 4px;
+            overflow: visible;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            scroll-snap-align: start;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.4);
+            z-index: 100;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image::before {
+            content: attr(data-title);
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* CARD EXPANDED ON HOVER */
+        .card-expanded {
+            position: absolute;
+            bottom: -80px;
+            left: 0;
+            right: 0;
+            background: var(--nf-dark);
+            border-radius: 0 0 4px 4px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+        }
+
+        .movie-card:hover .card-expanded {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+        }
+
+        .action-btn:hover {
+            border-color: white;
+            background: white;
+            color: black;
+            transform: scale(1.1);
+        }
+
+        .action-btn.play {
+            background: white;
+            border-color: white;
+            color: black;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            flex-wrap: wrap;
+        }
+
+        .card-meta .match { color: #46d369; font-weight: 700; }
+        .card-meta .age { border: 1px solid var(--nf-gray); padding: 1px 5px; font-size: 10px; }
+        .card-meta .quality { color: var(--nf-gray); }
+
+        .card-genres {
+            font-size: 11px;
+            color: var(--nf-light);
+            margin-top: 8px;
+        }
+
+        /* RANKED CARDS (TOP 10) */
+        .ranked-card {
+            display: flex;
+            align-items: flex-end;
+            width: 20%;
+            min-width: 250px;
+        }
+
+        .rank-number-big {
+            font-size: 120px;
+            font-weight: 900;
+            color: black;
+            -webkit-text-stroke: 4px var(--nf-gray);
+            line-height: 0.8;
+            margin-right: -30px;
+            z-index: 1;
+        }
+
+        .ranked-card .movie-card {
+            flex: 1;
+            aspect-ratio: 2/3;
+            margin-left: -10px;
+        }
+
+        .ranked-card .movie-card:hover {
+            transform: scale(1.2);
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 80px 4%;
+            background: var(--nf-black);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-box {
+            text-align: center;
+            padding: 40px 30px;
+        }
+
+        .feature-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 15px;
+            color: var(--nf-gray);
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 70px 4% 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 20px;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: var(--nf-gray);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--nf-light); }
+
+        .footer-btn {
+            background: none;
+            border: 1px solid var(--nf-gray);
+            color: var(--nf-gray);
+            padding: 8px 20px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .footer-btn:hover { border-color: white; color: white; }
+
+        .copyright {
+            font-size: 12px;
+            color: var(--nf-gray);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .movie-card { width: 20%; min-width: 180px; }
+            .movie-card:hover { transform: scale(1.3); }
+            .ranked-card { width: 25%; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { height: 70vh; min-height: 500px; padding-bottom: 100px; }
+            .hero-title { font-size: 40px; }
+            .movie-card { width: 33.33%; min-width: 140px; }
+            .movie-card:hover { transform: scale(1.15); }
+            .movie-section { margin-top: -60px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .footer-links { grid-template-columns: repeat(2, 1fr); }
+            .ranked-card { width: 50%; min-width: 180px; }
+            .rank-number-big { font-size: 80px; -webkit-text-stroke: 3px var(--nf-gray); }
+        }
+
+        @media (max-width: 480px) {
+            .movie-card { width: 50%; }
+            .hero-title { font-size: 32px; }
+            .hero-buttons { flex-direction: column; }
+            .hero-btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">Flix<span>Central</span></div>
+                <ul class="nav-links">
+                    <li><a class="nav-link">Inicio</a></li>
+                    <li><a class="nav-link">Series</a></li>
+                    <li><a class="nav-link">Películas</a></li>
+                    <li><a class="nav-link">Novedades</a></li>
+                    <li><a class="nav-link">Mi Lista</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <button class="search-btn">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                </button>
+                <button class="notif-btn">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                </button>
+                <button class="login-btn">Iniciar Sesión</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO BANNER -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-rank">
+                <span class="rank-number">1</span>
+                <span class="rank-text">Top 10 en México hoy</span>
+            </div>
+            <h1 class="hero-title">El Padrino</h1>
+            <div class="hero-meta">
+                <span class="match-score">98% de coincidencia</span>
+                <span>1972</span>
+                <span class="age-badge">16+</span>
+                <span>2h 55m</span>
+                <span class="quality">HD</span>
+            </div>
+            <p class="hero-desc">La historia épica de la familia Corleone. Don Vito transfiere el imperio a su hijo Michael, desatando una guerra de mafias que cambiará sus vidas para siempre.</p>
+            <div class="hero-buttons">
+                <button class="hero-btn btn-play">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    Reproducir
+                </button>
+                <button class="hero-btn btn-more">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                    Más Información
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOP 10 SECTION -->
+    <section class="movie-section">
+        <div class="section-header">
+            <h2 class="section-title">Top 10 en México hoy</h2>
+            <span class="see-all">Ver todo →</span>
+        </div>
+        <div class="carousel-wrapper">
+            <button class="carousel-nav nav-prev" onclick="scrollRow(this, -1)">‹</button>
+            <div class="carousel">
+                <div class="ranked-card">
+                    <span class="rank-number-big">1</span>
+                    <div class="movie-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #1a1a2e, #16213e);" data-title="El Padrino"></div>
+                        <div class="card-expanded">
+                            <div class="card-actions">
+                                <button class="action-btn play">▶</button>
+                                <button class="action-btn">+</button>
+                                <button class="action-btn">👍</button>
+                                <button class="action-btn">↓</button>
+                            </div>
+                            <div class="card-meta">
+                                <span class="match">98% Match</span>
+                                <span class="age">16+</span>
+                                <span>2h 55m</span>
+                                <span class="quality">HD</span>
+                            </div>
+                            <div class="card-genres">Crimen • Drama • Mafia</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ranked-card">
+                    <span class="rank-number-big">2</span>
+                    <div class="movie-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #0f3460, #533483);" data-title="Stranger Things"></div>
+                        <div class="card-expanded">
+                            <div class="card-actions">
+                                <button class="action-btn play">▶</button>
+                                <button class="action-btn">+</button>
+                                <button class="action-btn">👍</button>
+                            </div>
+                            <div class="card-meta">
+                                <span class="match">96% Match</span>
+                                <span class="age">16+</span>
+                                <span>4 Temp</span>
+                            </div>
+                            <div class="card-genres">Sci-Fi • Terror • Drama</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ranked-card">
+                    <span class="rank-number-big">3</span>
+                    <div class="movie-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #e94560, #533483);" data-title="Wednesday"></div>
+                        <div class="card-expanded">
+                            <div class="card-actions">
+                                <button class="action-btn play">▶</button>
+                                <button class="action-btn">+</button>
+                                <button class="action-btn">👍</button>
+                            </div>
+                            <div class="card-meta">
+                                <span class="match">95% Match</span>
+                                <span class="age">13+</span>
+                                <span>1 Temp</span>
+                            </div>
+                            <div class="card-genres">Comedia • Fantasía • Misterio</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ranked-card">
+                    <span class="rank-number-big">4</span>
+                    <div class="movie-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #16213e, #0f3460);" data-title="The Batman"></div>
+                        <div class="card-expanded">
+                            <div class="card-actions">
+                                <button class="action-btn play">▶</button>
+                                <button class="action-btn">+</button>
+                                <button class="action-btn">👍</button>
+                            </div>
+                            <div class="card-meta">
+                                <span class="match">97% Match</span>
+                                <span class="age">16+</span>
+                                <span>2h 56m</span>
+                            </div>
+                            <div class="card-genres">Acción • Crimen • DC</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ranked-card">
+                    <span class="rank-number-big">5</span>
+                    <div class="movie-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #533483, #e94560);" data-title="Squid Game"></div>
+                        <div class="card-expanded">
+                            <div class="card-actions">
+                                <button class="action-btn play">▶</button>
+                                <button class="action-btn">+</button>
+                                <button class="action-btn">👍</button>
+                            </div>
+                            <div class="card-meta">
+                                <span class="match">99% Match</span>
+                                <span class="age">18+</span>
+                                <span>1 Temp</span>
+                            </div>
+                            <div class="card-genres">Thriller • Drama • Suspenso</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-nav nav-next" onclick="scrollRow(this, 1)">›</button>
+        </div>
+    </section>
+
+    <!-- TENDENCIAS -->
+    <section class="movie-section">
+        <div class="section-header">
+            <h2 class="section-title">Tendencias Ahora</h2>
+            <span class="see-all">Ver todo →</span>
+        </div>
+        <div class="carousel-wrapper">
+            <button class="carousel-nav nav-prev" onclick="scrollRow(this, -1)">‹</button>
+            <div class="carousel">
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #667eea, #764ba2);" data-title="La Casa de Papel"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">98% Match</span>
+                            <span class="age">18+</span>
+                            <span>5 Temp</span>
+                        </div>
+                        <div class="card-genres">Crimen • Suspenso • Acción</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #f093fb, #f5576c);" data-title="You"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">95% Match</span>
+                            <span class="age">18+</span>
+                            <span>4 Temp</span>
+                        </div>
+                        <div class="card-genres">Thriller • Romance • Drama</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #4facfe, #00f2fe);" data-title="Avatar 2"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">92% Match</span>
+                            <span class="age">13+</span>
+                            <span>3h 12m</span>
+                        </div>
+                        <div class="card-genres">Sci-Fi • Aventura • Acción</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #43e97b, #38f9d7);" data-title="The Witcher"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">96% Match</span>
+                            <span class="age">18+</span>
+                            <span>3 Temp</span>
+                        </div>
+                        <div class="card-genres">Fantasía • Acción • Aventura</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #fa709a, #fee140);" data-title="Bridgerton"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">94% Match</span>
+                            <span class="age">16+</span>
+                            <span>2 Temp</span>
+                        </div>
+                        <div class="card-genres">Romance • Drama • Época</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #a8edea, #fed6e3);" data-title="Dark"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">98% Match</span>
+                            <span class="age">16+</span>
+                            <span>3 Temp</span>
+                        </div>
+                        <div class="card-genres">Sci-Fi • Misterio • Thriller</div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-nav nav-next" onclick="scrollRow(this, 1)">›</button>
+        </div>
+    </section>
+
+    <!-- POPULARES -->
+    <section class="movie-section">
+        <div class="section-header">
+            <h2 class="section-title">Populares en FlixCentral</h2>
+            <span class="see-all">Ver todo →</span>
+        </div>
+        <div class="carousel-wrapper">
+            <button class="carousel-nav nav-prev" onclick="scrollRow(this, -1)">‹</button>
+            <div class="carousel">
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #ffecd2, #fcb69f);" data-title="Ozark"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">97% Match</span>
+                            <span class="age">18+</span>
+                            <span>4 Temp</span>
+                        </div>
+                        <div class="card-genres">Crimen • Drama • Thriller</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #ff9a9e, #fecfef);" data-title="The Crown"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">95% Match</span>
+                            <span class="age">16+</span>
+                            <span>6 Temp</span>
+                        </div>
+                        <div class="card-genres">Drama • Historia • Biografía</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #a18cd1, #fbc2eb);" data-title="Black Mirror"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">96% Match</span>
+                            <span class="age">18+</span>
+                            <span>6 Temp</span>
+                        </div>
+                        <div class="card-genres">Sci-Fi • Distopía • Anthology</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #84fab0, #8fd3f4);" data-title="Lucifer"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">94% Match</span>
+                            <span class="age">16+</span>
+                            <span>6 Temp</span>
+                        </div>
+                        <div class="card-genres">Fantasía • Crimen • Comedia</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #d299c2, #fef9d7);" data-title="Narcos"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">97% Match</span>
+                            <span class="age">18+</span>
+                            <span>3 Temp</span>
+                        </div>
+                        <div class="card-genres">Crimen • Biografía • Drama</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #89f7fe, #66a6ff);" data-title="Mindhunter"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">98% Match</span>
+                            <span class="age">18+</span>
+                            <span>2 Temp</span>
+                        </div>
+                        <div class="card-genres">Crimen • Drama • Thriller</div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-nav nav-next" onclick="scrollRow(this, 1)">›</button>
+        </div>
+    </section>
+
+    <!-- ESTRENOS -->
+    <section class="movie-section">
+        <div class="section-header">
+            <h2 class="section-title">Estrenos 2024</h2>
+            <span class="see-all">Ver todo →</span>
+        </div>
+        <div class="carousel-wrapper">
+            <button class="carousel-nav nav-prev" onclick="scrollRow(this, -1)">‹</button>
+            <div class="carousel">
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #667eea, #764ba2);" data-title="Dune 2"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">97% Match</span>
+                            <span class="age">13+</span>
+                            <span>2h 46m</span>
+                        </div>
+                        <div class="card-genres">Sci-Fi • Aventura • Drama</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #f093fb, #f5576c);" data-title="Oppenheimer"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">98% Match</span>
+                            <span class="age">16+</span>
+                            <span>3h 0m</span>
+                        </div>
+                        <div class="card-genres">Biografía • Drama • Historia</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #4facfe, #00f2fe);" data-title="Killers of the Flower"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">95% Match</span>
+                            <span class="age">16+</span>
+                            <span>3h 26m</span>
+                        </div>
+                        <div class="card-genres">Crimen • Drama • Western</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #43e97b, #38f9d7);" data-title="Poor Things"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">94% Match</span>
+                            <span class="age">18+</span>
+                            <span>2h 21m</span>
+                        </div>
+                        <div class="card-genres">Comedia • Drama • Romance</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #fa709a, #fee140);" data-title="Wonka"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">90% Match</span>
+                            <span class="age">7+</span>
+                            <span>1h 56m</span>
+                        </div>
+                        <div class="card-genres">Musical • Fantasía • Aventura</div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #a8edea, #fed6e3);" data-title="Rebel Moon"></div>
+                    <div class="card-expanded">
+                        <div class="card-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">+</button>
+                            <button class="action-btn">👍</button>
+                        </div>
+                        <div class="card-meta">
+                            <span class="match">87% Match</span>
+                            <span class="age">13+</span>
+                            <span>2h 14m</span>
+                        </div>
+                        <div class="card-genres">Sci-Fi • Acción • Aventura</div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-nav nav-next" onclick="scrollRow(this, 1)">›</button>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="feature-icon">📺</div>
+                <h3 class="feature-title">Disfruta en tu TV</h3>
+                <p class="feature-desc">Ve en Smart TV, PlayStation, Xbox, Chromecast, Apple TV, reproductores Blu-ray y más.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">Descarga tus favoritos</h3>
+                <p class="feature-desc">Guarda tu contenido y siempre tendrás algo para ver sin conexión.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">🎬</div>
+                <h3 class="feature-title">Donde quieras</h3>
+                <p class="feature-desc">Películas y series ilimitadas en tu teléfono, tablet, laptop y TV.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#">📘</a>
+                <a href="#">🐦</a>
+                <a href="#">📸</a>
+                <a href="#">▶️</a>
+            </div>
+            <div class="footer-links">
+                <a href="#">Audio descriptivo</a>
+                <a href="#">Centro de ayuda</a>
+                <a href="#">Tarjetas de regalo</a>
+                <a href="#">Prensa</a>
+                <a href="#">Relaciones con inversionistas</a>
+                <a href="#">Empleo</a>
+                <a href="#">Privacidad</a>
+                <a href="#">Términos de uso</a>
+                <a href="#">Avisos legales</a>
+                <a href="#">Preferencias de cookies</a>
+                <a href="#">Información corporativa</a>
+                <a href="#">Contáctanos</a>
+            </div>
+            <button class="footer-btn">Código de servicio</button>
+            <p class="copyright">© 2024 FlixCentralPlus. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Carousel scroll
+        function scrollRow(btn, direction) {
+            const carousel = btn.parentElement.querySelector('.carousel');
+            const scrollAmount = carousel.clientWidth * 0.8;
+            carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+        }
+
+        // Hover effects for cards
+        document.querySelectorAll('.movie-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '1000';
+            });
+            card.addEventListener('mouseleave', function() {
+                setTimeout(() => {
+                    this.style.zIndex = '1';
+                }, 400);
+            });
+        });
+    </script>
+
+</body>
+</html>
