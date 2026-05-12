@@ -97,8 +97,8 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 .card-play svg{width:20px;height:20px;fill:#fff;margin-left:3px}
 .card:hover .card-play{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .card-play:hover{background:#e50914;transform:translate(-50%,-50%) scale(1.1)!important;box-shadow:0 0 50px rgba(229,9,20,.6)}
-.card-rank{position:absolute;bottom:40px;left:-18px;font-size:5.5rem;font-weight:900;color:#000;z-index:0;line-height:.85;pointer-events:none;font-family:'Inter',sans-serif;letter-spacing:-6px;transition:all .4s cubic-bezier(.22,1,.36,1);text-shadow:-1px -1px 0 rgba(255,255,255,.08),1px 1px 0 rgba(0,0,0,.8),0 0 30px rgba(0,0,0,.6);-webkit-text-stroke:2px rgba(255,255,255,.06)}
-.card:hover .card-rank{transform:scale(1.08);color:#111;text-shadow:-1px -1px 0 rgba(229,9,20,.2),1px 1px 0 #000,0 0 40px rgba(0,0,0,.8)}
+.card-rank{position:absolute;bottom:35px;left:-16px;font-size:6.5rem;font-weight:900;color:#fff;z-index:0;line-height:.75;pointer-events:none;font-family:'Inter',sans-serif;letter-spacing:-8px;transition:all .4s cubic-bezier(.22,1,.36,1);text-shadow:0 0 20px rgba(0,0,0,.5),0 2px 4px rgba(0,0,0,.8),-1px -1px 0 rgba(255,255,255,.1);user-select:none;opacity:.85}
+.card:hover .card-rank{opacity:1;transform:scale(1.06) translateX(3px);text-shadow:0 0 30px rgba(0,0,0,.6),0 2px 8px rgba(0,0,0,.9),0 0 40px rgba(229,9,20,.1)}
 .card-rank-num{position:absolute;top:10px;left:10px;font-size:.7rem;font-weight:800;color:#fff;background:linear-gradient(135deg,#e50914,#ff3b3b);backdrop-filter:blur(8px);width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;z-index:2;box-shadow:0 2px 12px rgba(229,9,20,.5);text-shadow:0 1px 2px rgba(0,0,0,.3);display:none}
 .card-rating{position:absolute;top:10px;right:10px;font-size:.7rem;color:#ffd93d;font-weight:700;text-shadow:0 1px 6px rgba(0,0,0,.5);z-index:2;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);padding:3px 8px;border-radius:6px;letter-spacing:.5px}
 .card-info{padding:14px 12px;width:100%;position:relative;z-index:2;transform:translateY(0);transition:transform .4s cubic-bezier(.22,1,.36,1)}
