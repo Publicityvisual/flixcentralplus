@@ -13,6 +13,10 @@
   --color-border: #222;
 }
 
+@utility rounded-card {
+  border-radius: 8px;
+}
+
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#000;color:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
