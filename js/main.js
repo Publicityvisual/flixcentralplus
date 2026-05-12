@@ -173,12 +173,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const ham = $('#hamburger'), mm = $('#mobileMenu');
-  ham.addEventListener('click', () => {
-    const open = mm.classList.contains('open');
-    ham.classList.toggle('active'); mm.classList.toggle('open');
-    ham.setAttribute('aria-expanded', !open);
-  });
-  $$('a', mm).forEach(l => l.addEventListener('click', () => { ham.classList.remove('active'); mm.classList.remove('open'); ham.setAttribute('aria-expanded', 'false'); }));
+  if (ham && mm) {
+    ham.addEventListener('click', () => {
+      const open = mm.classList.contains('open');
+      ham.classList.toggle('active'); mm.classList.toggle('open');
+      ham.setAttribute('aria-expanded', !open);
+    });
+    $$('a', mm).forEach(l => l.addEventListener('click', () => { ham.classList.remove('active'); mm.classList.remove('open'); ham.setAttribute('aria-expanded', 'false'); }));
+  }
 
   const trk = $('#trendingTrack'), pv = $('.scroll-prev'), nx = $('.scroll-next');
   const sa = () => { const c = trk?.querySelector('.card'); return c ? c.offsetWidth + 12 : 200; };
