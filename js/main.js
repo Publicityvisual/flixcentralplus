@@ -293,23 +293,34 @@ async function fetchTrending() {
   } catch (e) { console.warn('TMDB trending failed:', e?.message); }
 }
 
+let heroInterval;
+
 async function fetchHero() {
   try {
     const lp = lang === 'es' ? 'es-MX' : 'en-US';
     const r = await fetch(`https://api.themoviedb.org/3/trending/all/week?language=${lp}`, { headers: { Authorization: `Bearer ${TMDB_TOKEN}` } });
     const d = await r.json();
-    const top = d.results?.[0];
-    if (top?.backdrop_path) {
-      const hero = $('#hero');
-      if (!hero) return;
+    const backdrops = d.results?.filter(item => item.backdrop_path).slice(0, 6) || [];
+    if (!backdrops.length) return;
+
+    const hero = $('#hero');
+    if (!hero) return;
+    hero.style.transition = 'background-image 1.2s cubic-bezier(.22,1,.36,1)';
+    hero.style.backgroundSize = 'cover';
+    hero.style.backgroundPosition = 'center top';
+
+    let i = 0;
+    const loadBg = (idx) => {
       const img = new Image();
-      img.fetchPriority = 'high';
-      img.src = `${TMDB_IMG}/original${top.backdrop_path}`;
-      img.onload = () => {
-        hero.style.backgroundImage = `url(${img.src})`;
-        hero.style.backgroundSize = 'cover';
-        hero.style.backgroundPosition = 'center top';
-      };
-    }
-  } catch (e) { console.warn('TMDB trending failed:', e?.message); }
+      img.src = `${TMDB_IMG}/original${backdrops[idx].backdrop_path}`;
+      img.onload = () => { hero.style.backgroundImage = `url(${img.src})`; };
+    };
+
+    loadBg(0);
+    clearInterval(heroInterval);
+    heroInterval = setInterval(() => {
+      i = (i + 1) % backdrops.length;
+      loadBg(i);
+    }, 6000);
+  } catch (e) { console.warn('TMDB hero failed:', e?.message); }
 }
