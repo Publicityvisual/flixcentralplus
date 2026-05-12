@@ -15,16 +15,12 @@ jobs:
       - run: npm ci
       - run: npm run build
       - name: Deploy to Firebase Hosting
-        if: ${{ secrets.FIREBASE_TOKEN != '' }}
-        run: npx firebase-tools deploy --only hosting --token "$FIREBASE_TOKEN"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - name: Setup instructions
-        if: ${{ secrets.FIREBASE_TOKEN == '' }}
         run: |
-          echo "::warning::FIREBASE_TOKEN not configured. Skipping deploy."
-          echo ""
-          echo "To enable auto-deploy on push:"
-          echo "1. Run: firebase login:ci"
-          echo "2. Copy the token"
-          echo "3. Add it as FIREBASE_TOKEN in GitHub Secrets"
+          if [ -z "$FIREBASE_TOKEN" ]; then
+            echo "::warning::FIREBASE_TOKEN not configured in GitHub Secrets."
+            echo "Run: firebase login:ci, then add the token as FIREBASE_TOKEN"
+            exit 0
+          fi
+          npx firebase-tools deploy --only hosting --token "$FIREBASE_TOKEN"
