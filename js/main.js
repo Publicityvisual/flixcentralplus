@@ -276,7 +276,7 @@ async function fetchTrending() {
       c.innerHTML = `<div class="card-img" style="background:#1a1a1a">${poster ? `<img src="${poster}" alt="${title}" onerror="this.style.display='none'" loading="lazy" width="140" height="210" />` : ''}<div class="card-img-overlay"></div><div class="card-info"><div class="card-rating">&#9733; ${rating}</div><h4>${title}</h4><p>${TR[lang].tr.mov}${year ? ` - ${year}` : ''}</p></div></div>`;
       trk.appendChild(c);
     });
-  } catch (e) {}
+  } catch (e) { console.warn('TMDB trending failed:', e?.message); }
 }
 
 async function fetchHero() {
@@ -287,6 +287,7 @@ async function fetchHero() {
     const top = d.results?.[0];
     if (top?.backdrop_path) {
       const hero = $('#hero');
+      if (!hero) return;
       const img = new Image();
       img.fetchPriority = 'high';
       img.src = `${TMDB_IMG}/original${top.backdrop_path}`;
@@ -296,5 +297,5 @@ async function fetchHero() {
         hero.style.backgroundPosition = 'center top';
       };
     }
-  } catch (e) {}
+  } catch (e) { console.warn('TMDB trending failed:', e?.message); }
 }
