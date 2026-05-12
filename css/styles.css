@@ -172,19 +172,24 @@ button:focus:not(:focus-visible){outline:none}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
 /* RWD */
-@media(max-width:1024px){.features-grid{grid-template-columns:repeat(2,1fr)}.plans-grid{gap:16px}.footer-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1024px){.features-grid{grid-template-columns:repeat(2,1fr)}.plans-grid{grid-template-columns:repeat(2,1fr);gap:16px}.footer-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){
   .nav-links,.nav-actions{display:none}.hamburger{display:flex}
   .hero-form{flex-direction:column}.btn-hero{justify-content:center;width:100%}
   .plans-grid{grid-template-columns:1fr;max-width:400px;margin-left:auto;margin-right:auto}.features-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}
-  .card{width:170px}.section{padding:60px 0}
+  .card{width:170px;margin-left:16px}.section{padding:60px 0}
+  .carousel-track{gap:10px}
   .faq-question{font-size:.95rem;padding:18px 20px}
   .plan-card{padding:28px 24px}
+  .hero-title{font-size:clamp(2rem,7vw,3rem)}
+  .feature-card{padding:24px 20px}
+  .scroll-btn{width:44px;height:44px}
 }
 @media(max-width:480px){
-  .card{width:145px;margin-left:24px}.scroll-btn{width:36px;height:36px}
+  .card{width:145px;margin-left:12px}.scroll-btn{width:44px;height:44px}
+  .carousel-track{gap:8px}
   .footer-grid{grid-template-columns:1fr;text-align:center}
   .footer-col a:hover{padding-left:0}
-  .hero-title{font-size:clamp(2rem,8vw,2.8rem)}
+  .hero-title{font-size:clamp(1.8rem,8vw,2.5rem)}
   .section-title{font-size:clamp(1.3rem,5vw,1.8rem)}
 }
