@@ -154,6 +154,12 @@ document.addEventListener('DOMContentLoaded', () => {
     applyLang();
     fetchTrending();
     fetchHero();
+    // Restore plan selection
+    const saved = localStorage.getItem('flix_plan');
+    if (saved && {basic:'b',standard:'s',premium:'p'}[saved]) {
+      $$('.btn-plan').forEach(b => { b.style.background = ''; b.textContent = `${TR[lang].pl.go} ${TR[lang].pl[{basic:'b',standard:'s',premium:'p'}[saved]]}`; });
+      $$(`.btn-plan[data-plan="${saved}"]`).forEach(b => { b.innerHTML = `&#10003; ${TR[lang].pl.ok}`; b.style.background = '#2e7d32'; });
+    }
   };
   $$('.lang-btn').forEach(b => b.addEventListener('click', toggleLang));
 
@@ -211,15 +217,27 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#heroForm')?.addEventListener('submit', handleForm);
   $('#faqForm')?.addEventListener('submit', handleForm);
 
+  // Restore selected plan
+  const savedPlan = localStorage.getItem('flix_plan');
+  const planKey = {basic:'b',standard:'s',premium:'p'};
+  if (savedPlan && planKey[savedPlan]) {
+    $$(`.btn-plan[data-plan="${savedPlan}"]`).forEach(btn => {
+      btn.textContent = `✓ ${TR[lang].pl.ok}`;
+      btn.style.background = '#2e7d32';
+    });
+  }
+
   $$('.btn-plan').forEach(btn => {
     btn.addEventListener('click', function() {
-      const orig = this.innerHTML;
-      this.innerHTML = '&hellip;';
-      setTimeout(() => {
-        this.innerHTML = `&#10003; ${TR[lang].pl.ok}`;
-        this.style.background = '#2e7d32';
-        setTimeout(() => { this.innerHTML = orig; this.style.background = ''; }, 2500);
-      }, 800);
+      const plan = this.dataset.plan;
+      localStorage.setItem('flix_plan', plan);
+      $$('.btn-plan').forEach(b => {
+        const key = planKey[b.dataset.plan];
+        b.textContent = `${TR[lang].pl.go} ${TR[lang].pl[key]}`;
+        b.style.background = '';
+      });
+      this.innerHTML = `&#10003; ${TR[lang].pl.ok}`;
+      this.style.background = '#2e7d32';
     });
   });
 
