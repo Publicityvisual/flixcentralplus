@@ -10,18 +10,48 @@ const TR = {
     nav: { t: 'Trending', p: 'Plans', f: 'Features', q: 'FAQ', si: 'Sign In' },
     hero: { b: 'NEW SEASON', t1: 'Unlimited', t2: 'Movies & Series', s: 'Watch everywhere. Cancel anytime. Your next binge starts here.', c: 'Get Started', n: 'Ready to watch? Enter your email to create or restart your membership.', pl: 'Enter your email', al: 'Almost there...', ch: 'Check your email!' },
     tr: { t: 'Trending Now', pop: 'Popular<br>Movies &rarr;', mov: 'Movie', ser: 'Series' },
-    pl: { t: 'Choose Your Plan', d: 'Watch without limits.', b: 'Basic', s: 'Standard', p: 'Premium', pop: 'Most Popular', m: '/month', go: 'Get Started', ok: 'selected' },
-    feat: { t: 'More Reasons to Join' },
-    faq: { t: 'Frequently Asked Questions', c: 'Ready to watch? Enter your email to create or restart your membership.' },
+    pl: { t: 'Choose Your Plan', d: 'Watch without limits.', b: 'Basic', s: 'Standard', p: 'Premium', pop: 'Most Popular', m: '/month', go: 'Get Started', ok: 'selected',
+      f1: '720p', f2: '1 device', f3: 'Ad-free',
+      s1: '1080p', s2: '2 devices', s3: 'Downloads', s4: 'Ad-free',
+      p1: '4K + HDR', p2: '4 devices', p3: 'Downloads', p4: 'Dolby Atmos', p5: 'Ad-free' },
+    feat: { t: 'More Reasons to Join',
+      c1t: 'Watch on your TV', c1d: 'Smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.',
+      c2t: 'Download & go', c2d: 'Save your favorites and always have something to watch, even offline.',
+      c3t: 'Watch everywhere', c3d: 'Stream on your phone, tablet, laptop, and TV - all included.',
+      c4t: 'Zero ads', c4d: 'Enjoy unlimited movies and shows without a single commercial interruption.',
+      c5t: 'Fresh daily', c5d: 'New movies, series, and exclusives added every single day.',
+      c6t: 'Family ready', c6d: 'Multiple profiles with PIN-protected parental controls for kids.' },
+    faq: { t: 'Frequently Asked Questions', c: 'Ready to watch? Enter your email to create or restart your membership.',
+      q1: 'What is Flixcentral+?', a1: 'Flixcentral+ is a streaming service that offers award-winning movies, TV shows, anime, documentaries, and more on thousands of internet-connected devices. Watch as much as you want, whenever you want, without a single commercial - all for one low monthly price.',
+      q2: 'How much does it cost?', a2: 'Plans range from $7.99 to $15.99 a month. No extra costs, no contracts, no hidden fees. Cancel online anytime.',
+      q3: 'Where can I watch?', a3: 'Watch instantly from any smartphone, tablet, computer, or TV with the Flixcentral+ app. Available on Smart TVs, game consoles, streaming players, and more.',
+      q4: 'How do I cancel?', a4: 'No contracts, no commitments. Cancel your account online with just two clicks. No cancellation fees - start or stop anytime.',
+      q5: 'What can I watch?', a5: 'An extensive library of feature films, documentaries, TV shows, anime, and exclusive Flixcentral+ Originals. Updated daily.',
+      q6: 'Is Flixcentral+ good for kids?', a6: 'The Flixcentral+ Kids experience is included. Parents stay in control with PIN-protected parental controls and dedicated kids profiles.' },
     foot: { ph: 'Questions? Call', br: 'Flixcentral+ &copy; 2026', tmdb: 'Powered by TMDB' }
   },
   es: {
     nav: { t: 'Tendencias', p: 'Planes', f: 'Caracter&iacute;sticas', q: 'FAQ', si: 'Iniciar Sesi&oacute;n' },
     hero: { b: 'NUEVA TEMPORADA', t1: 'Pel&iacute;culas y', t2: 'Series Ilimitadas', s: 'Mira donde quieras. Cancela cuando quieras. Tu pr&oacute;ximo marat&oacute;n empieza aqu&iacute;.', c: 'Comenzar', n: '&iquest;Listo para mirar? Ingresa tu email para crear o reactivar tu membres&iacute;a.', pl: 'Ingresa tu email', al: 'Casi listo...', ch: '&iexcl;Revisa tu email!' },
     tr: { t: 'En Tendencia', pop: 'Pel&iacute;culas<br>Populares &rarr;', mov: 'Pel&iacute;cula', ser: 'Serie' },
-    pl: { t: 'Elige tu Plan', d: 'Mira sin l&iacute;mites.', b: 'B&aacute;sico', s: 'Est&aacute;ndar', p: 'Premium', pop: 'M&aacute;s Popular', m: '/mes', go: 'Empezar', ok: 'seleccionado' },
-    feat: { t: 'M&aacute;s Razones para Unirte' },
-    faq: { t: 'Preguntas Frecuentes', c: '&iquest;Listo para mirar? Ingresa tu email para crear o reactivar tu membres&iacute;a.' },
+    pl: { t: 'Elige tu Plan', d: 'Mira sin l&iacute;mites.', b: 'B&aacute;sico', s: 'Est&aacute;ndar', p: 'Premium', pop: 'M&aacute;s Popular', m: '/mes', go: 'Empezar', ok: 'seleccionado',
+      f1: '720p', f2: '1 dispositivo', f3: 'Sin anuncios',
+      s1: '1080p', s2: '2 dispositivos', s3: 'Descargas', s4: 'Sin anuncios',
+      p1: '4K + HDR', p2: '4 dispositivos', p3: 'Descargas', p4: 'Dolby Atmos', p5: 'Sin anuncios' },
+    feat: { t: 'M&aacute;s Razones para Unirte',
+      c1t: 'Mira en tu TV', c1d: 'Smart TVs, PlayStation, Xbox, Chromecast, Apple TV, reproductores Blu-ray y m&aacute;s.',
+      c2t: 'Descarga y disfruta', c2d: 'Guarda tus favoritos y siempre ten algo para ver, incluso sin conexi&oacute;n.',
+      c3t: 'Mira donde sea', c3d: 'Transmite en tu tel&eacute;fono, tablet, laptop y TV - todo incluido.',
+      c4t: 'Cero anuncios', c4d: 'Disfruta de pel&iacute;culas y series ilimitadas sin una sola interrupci&oacute;n comercial.',
+      c5t: 'Nuevo cada d&iacute;a', c5d: 'Pel&iacute;culas, series y exclusivas nuevas a&ntilde;adidas cada d&iacute;a.',
+      c6t: 'Para toda la familia', c6d: 'M&uacute;ltiples perfiles con controles parentales protegidos con PIN para ni&ntilde;os.' },
+    faq: { t: 'Preguntas Frecuentes', c: '&iquest;Listo para mirar? Ingresa tu email para crear o reactivar tu membres&iacute;a.',
+      q1: '&iquest;Qu&eacute; es Flixcentral+?', a1: 'Flixcentral+ es un servicio de streaming que ofrece pel&iacute;culas premiadas, series, anime, documentales y m&aacute;s en miles de dispositivos conectados a internet. Mira todo lo que quieras, cuando quieras, sin un solo comercial - todo por un precio mensual bajo.',
+      q2: '&iquest;Cu&aacute;nto cuesta?', a2: 'Los planes van desde $7.99 hasta $15.99 al mes. Sin costos extra, sin contratos, sin cargos ocultos. Cancela en l&iacute;nea cuando quieras.',
+      q3: '&iquest;D&oacute;nde puedo ver?', a3: 'Mira al instante desde cualquier smartphone, tablet, computadora o TV con la app de Flixcentral+. Disponible en Smart TVs, consolas, reproductores de streaming y m&aacute;s.',
+      q4: '&iquest;C&oacute;mo cancelo?', a4: 'Sin contratos, sin compromisos. Cancela tu cuenta en l&iacute;nea con solo dos clics. Sin cargos de cancelaci&oacute;n - empieza o detente cuando quieras.',
+      q5: '&iquest;Qu&eacute; puedo ver?', a5: 'Una extensa biblioteca de largometrajes, documentales, series, anime y exclusivos Originales de Flixcentral+. Actualizado diariamente.',
+      q6: '&iquest;Es Flixcentral+ bueno para ni&ntilde;os?', a6: 'La experiencia Flixcentral+ Kids est&aacute; incluida. Los padres mantienen el control con controles parentales protegidos con PIN y perfiles dedicados para ni&ntilde;os.' },
     foot: { ph: '&iquest;Preguntas? Llama al', br: 'Flixcentral+ &copy; 2026', tmdb: 'Desarrollado por TMDB' }
   }
 };
@@ -61,15 +91,51 @@ function applyLang() {
   byId('pl.p').forEach(e => e.textContent = t.pl.p);
   byId('pl.pop').forEach(e => e.textContent = t.pl.pop);
   byId('pl.m').forEach(e => e.textContent = t.pl.m);
+  byId('pl.f1').forEach(e => e.textContent = t.pl.f1);
+  byId('pl.f2').forEach(e => e.textContent = t.pl.f2);
+  byId('pl.f3').forEach(e => e.textContent = t.pl.f3);
+  byId('pl.s1').forEach(e => e.textContent = t.pl.s1);
+  byId('pl.s2').forEach(e => e.textContent = t.pl.s2);
+  byId('pl.s3').forEach(e => e.textContent = t.pl.s3);
+  byId('pl.s4').forEach(e => e.textContent = t.pl.s4);
+  byId('pl.p1').forEach(e => e.textContent = t.pl.p1);
+  byId('pl.p2').forEach(e => e.textContent = t.pl.p2);
+  byId('pl.p3').forEach(e => e.textContent = t.pl.p3);
+  byId('pl.p4').forEach(e => e.textContent = t.pl.p4);
+  byId('pl.p5').forEach(e => e.textContent = t.pl.p5);
 
   $$('.btn-plan[data-plan="basic"]').forEach(e => e.textContent = `${t.pl.go} ${t.pl.b}`);
   $$('.btn-plan[data-plan="standard"]').forEach(e => e.textContent = `${t.pl.go} ${t.pl.s}`);
   $$('.btn-plan[data-plan="premium"]').forEach(e => e.textContent = `${t.pl.go} ${t.pl.p}`);
 
   byId('feat.t').forEach(e => e.textContent = t.feat.t);
+  byId('feat.c1t').forEach(e => e.textContent = t.feat.c1t);
+  byId('feat.c1d').forEach(e => e.textContent = t.feat.c1d);
+  byId('feat.c2t').forEach(e => e.textContent = t.feat.c2t);
+  byId('feat.c2d').forEach(e => e.textContent = t.feat.c2d);
+  byId('feat.c3t').forEach(e => e.textContent = t.feat.c3t);
+  byId('feat.c3d').forEach(e => e.textContent = t.feat.c3d);
+  byId('feat.c4t').forEach(e => e.textContent = t.feat.c4t);
+  byId('feat.c4d').forEach(e => e.textContent = t.feat.c4d);
+  byId('feat.c5t').forEach(e => e.textContent = t.feat.c5t);
+  byId('feat.c5d').forEach(e => e.textContent = t.feat.c5d);
+  byId('feat.c6t').forEach(e => e.textContent = t.feat.c6t);
+  byId('feat.c6d').forEach(e => e.textContent = t.feat.c6d);
 
   byId('faq.t').forEach(e => e.textContent = t.faq.t);
   byId('faq.c').forEach(e => e.textContent = t.faq.c);
+  byId('faq.q1').forEach(e => e.textContent = t.faq.q1);
+  byId('faq.a1').forEach(e => e.innerHTML = t.faq.a1);
+  byId('faq.q2').forEach(e => e.textContent = t.faq.q2);
+  byId('faq.a2').forEach(e => e.innerHTML = t.faq.a2);
+  byId('faq.q3').forEach(e => e.textContent = t.faq.q3);
+  byId('faq.a3').forEach(e => e.innerHTML = t.faq.a3);
+  byId('faq.q4').forEach(e => e.textContent = t.faq.q4);
+  byId('faq.a4').forEach(e => e.innerHTML = t.faq.a4);
+  byId('faq.q5').forEach(e => e.textContent = t.faq.q5);
+  byId('faq.a5').forEach(e => e.innerHTML = t.faq.a5);
+  byId('faq.q6').forEach(e => e.textContent = t.faq.q6);
+  byId('faq.a6').forEach(e => e.innerHTML = t.faq.a6);
 
   byId('foot.ph').forEach(e => e.innerHTML = `${t.foot.ph} <a href="tel:+1234567890">1-234-567-890</a>`);
   byId('foot.br').forEach(e => e.textContent = t.foot.br);
