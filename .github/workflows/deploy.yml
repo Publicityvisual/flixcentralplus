@@ -14,9 +14,17 @@ jobs:
           node-version: 22
       - run: npm ci
       - run: npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          channelId: live
-          projectId: flixcentralplus-33dc5
+      - name: Deploy to Firebase Hosting
+        if: ${{ secrets.FIREBASE_TOKEN != '' }}
+        run: npx firebase-tools deploy --only hosting --token "$FIREBASE_TOKEN"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Setup instructions
+        if: ${{ secrets.FIREBASE_TOKEN == '' }}
+        run: |
+          echo "::warning::FIREBASE_TOKEN not configured. Skipping deploy."
+          echo ""
+          echo "To enable auto-deploy on push:"
+          echo "1. Run: firebase login:ci"
+          echo "2. Copy the token"
+          echo "3. Add it as FIREBASE_TOKEN in GitHub Secrets"
