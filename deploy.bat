@@ -25,22 +25,3 @@ echo  Build + Deploy complete!
 echo  https://flixcentralplus-33dc5.web.app
 echo ====================================
 pause
-    exit /b 1
-)
-echo.
-echo Step 2: Login to Firebase (if needed)
-firebase login
-echo.
-echo Step 3: Deploying to Firebase Hosting...
-firebase deploy --only hosting
-if %errorlevel% neq 0 (
-    echo Deploy failed.
-    pause
-    exit /b 1
-)
-echo.
-echo ====================================
-echo  Build + Deploy complete!
-echo  https://flixcentralplus-33dc5.web.app
-echo ====================================
-pause
