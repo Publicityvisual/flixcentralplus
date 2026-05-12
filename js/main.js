@@ -9,7 +9,7 @@ const TR = {
   en: {
     nav: { t: 'Trending', p: 'Plans', f: 'Features', q: 'FAQ', si: 'Sign In' },
     hero: { b: 'NEW SEASON', t1: 'Unlimited', t2: 'Movies & Series', s: 'Watch everywhere. Cancel anytime. Your next binge starts here.', c: 'Get Started', n: 'Ready to watch? Enter your email to create or restart your membership.', pl: 'Enter your email', al: 'Almost there...', ch: 'Check your email!' },
-    tr: { t: 'Trending Now', pop: 'Popular<br>Movies &rarr;', mov: 'Movie', ser: 'Series' },
+    tr: { t: 'Trending Now', pop: 'Popular<br>Movies →', mov: 'Movie', ser: 'Series' },
     pl: { t: 'Choose Your Plan', d: 'Watch without limits.', b: 'Basic', s: 'Standard', p: 'Premium', pop: 'Most Popular', m: '/month', go: 'Get Started', ok: 'selected',
       f1: '720p', f2: '1 device', f3: 'Ad-free',
       s1: '1080p', s2: '2 devices', s3: 'Downloads', s4: 'Ad-free',
@@ -28,31 +28,31 @@ const TR = {
       q4: 'How do I cancel?', a4: 'No contracts, no commitments. Cancel your account online with just two clicks. No cancellation fees - start or stop anytime.',
       q5: 'What can I watch?', a5: 'An extensive library of feature films, documentaries, TV shows, anime, and exclusive Flixcentral+ Originals. Updated daily.',
       q6: 'Is Flixcentral+ good for kids?', a6: 'The Flixcentral+ Kids experience is included. Parents stay in control with PIN-protected parental controls and dedicated kids profiles.' },
-    foot: { ph: 'Questions? Call', br: 'Flixcentral+ &copy; 2026', tmdb: 'Powered by TMDB' }
+    foot: { ph: 'Questions? Call', br: 'Flixcentral+ © 2026', tmdb: 'Powered by TMDB' }
   },
   es: {
-    nav: { t: 'Tendencias', p: 'Planes', f: 'Caracter&iacute;sticas', q: 'FAQ', si: 'Iniciar Sesi&oacute;n' },
-    hero: { b: 'NUEVA TEMPORADA', t1: 'Pel&iacute;culas y', t2: 'Series Ilimitadas', s: 'Mira donde quieras. Cancela cuando quieras. Tu pr&oacute;ximo marat&oacute;n empieza aqu&iacute;.', c: 'Comenzar', n: '&iquest;Listo para mirar? Ingresa tu email para crear o reactivar tu membres&iacute;a.', pl: 'Ingresa tu email', al: 'Casi listo...', ch: '&iexcl;Revisa tu email!' },
-    tr: { t: 'En Tendencia', pop: 'Pel&iacute;culas<br>Populares &rarr;', mov: 'Pel&iacute;cula', ser: 'Serie' },
-    pl: { t: 'Elige tu Plan', d: 'Mira sin l&iacute;mites.', b: 'B&aacute;sico', s: 'Est&aacute;ndar', p: 'Premium', pop: 'M&aacute;s Popular', m: '/mes', go: 'Empezar', ok: 'seleccionado',
+    nav: { t: 'Tendencias', p: 'Planes', f: 'Características', q: 'FAQ', si: 'Iniciar Sesión' },
+    hero: { b: 'NUEVA TEMPORADA', t1: 'Películas y', t2: 'Series Ilimitadas', s: 'Mira donde quieras. Cancela cuando quieras. Tu próximo maratón empieza aquí.', c: 'Comenzar', n: '¿Listo para mirar? Ingresa tu email para crear o reactivar tu membresía.', pl: 'Ingresa tu email', al: 'Casi listo...', ch: '¡Revisa tu email!' },
+    tr: { t: 'En Tendencia', pop: 'Películas<br>Populares →', mov: 'Película', ser: 'Serie' },
+    pl: { t: 'Elige tu Plan', d: 'Mira sin límites.', b: 'Básico', s: 'Estándar', p: 'Premium', pop: 'Más Popular', m: '/mes', go: 'Empezar', ok: 'seleccionado',
       f1: '720p', f2: '1 dispositivo', f3: 'Sin anuncios',
       s1: '1080p', s2: '2 dispositivos', s3: 'Descargas', s4: 'Sin anuncios',
       p1: '4K + HDR', p2: '4 dispositivos', p3: 'Descargas', p4: 'Dolby Atmos', p5: 'Sin anuncios' },
-    feat: { t: 'M&aacute;s Razones para Unirte',
-      c1t: 'Mira en tu TV', c1d: 'Smart TVs, PlayStation, Xbox, Chromecast, Apple TV, reproductores Blu-ray y m&aacute;s.',
-      c2t: 'Descarga y disfruta', c2d: 'Guarda tus favoritos y siempre ten algo para ver, incluso sin conexi&oacute;n.',
-      c3t: 'Mira donde sea', c3d: 'Transmite en tu tel&eacute;fono, tablet, laptop y TV - todo incluido.',
-      c4t: 'Cero anuncios', c4d: 'Disfruta de pel&iacute;culas y series ilimitadas sin una sola interrupci&oacute;n comercial.',
-      c5t: 'Nuevo cada d&iacute;a', c5d: 'Pel&iacute;culas, series y exclusivas nuevas a&ntilde;adidas cada d&iacute;a.',
-      c6t: 'Para toda la familia', c6d: 'M&uacute;ltiples perfiles con controles parentales protegidos con PIN para ni&ntilde;os.' },
-    faq: { t: 'Preguntas Frecuentes', c: '&iquest;Listo para mirar? Ingresa tu email para crear o reactivar tu membres&iacute;a.',
-      q1: '&iquest;Qu&eacute; es Flixcentral+?', a1: 'Flixcentral+ es un servicio de streaming que ofrece pel&iacute;culas premiadas, series, anime, documentales y m&aacute;s en miles de dispositivos conectados a internet. Mira todo lo que quieras, cuando quieras, sin un solo comercial - todo por un precio mensual bajo.',
-      q2: '&iquest;Cu&aacute;nto cuesta?', a2: 'Los planes van desde $7.99 hasta $15.99 al mes. Sin costos extra, sin contratos, sin cargos ocultos. Cancela en l&iacute;nea cuando quieras.',
-      q3: '&iquest;D&oacute;nde puedo ver?', a3: 'Mira al instante desde cualquier smartphone, tablet, computadora o TV con la app de Flixcentral+. Disponible en Smart TVs, consolas, reproductores de streaming y m&aacute;s.',
-      q4: '&iquest;C&oacute;mo cancelo?', a4: 'Sin contratos, sin compromisos. Cancela tu cuenta en l&iacute;nea con solo dos clics. Sin cargos de cancelaci&oacute;n - empieza o detente cuando quieras.',
-      q5: '&iquest;Qu&eacute; puedo ver?', a5: 'Una extensa biblioteca de largometrajes, documentales, series, anime y exclusivos Originales de Flixcentral+. Actualizado diariamente.',
-      q6: '&iquest;Es Flixcentral+ bueno para ni&ntilde;os?', a6: 'La experiencia Flixcentral+ Kids est&aacute; incluida. Los padres mantienen el control con controles parentales protegidos con PIN y perfiles dedicados para ni&ntilde;os.' },
-    foot: { ph: '&iquest;Preguntas? Llama al', br: 'Flixcentral+ &copy; 2026', tmdb: 'Desarrollado por TMDB' }
+    feat: { t: 'Más Razones para Unirte',
+      c1t: 'Mira en tu TV', c1d: 'Smart TVs, PlayStation, Xbox, Chromecast, Apple TV, reproductores Blu-ray y más.',
+      c2t: 'Descarga y disfruta', c2d: 'Guarda tus favoritos y siempre ten algo para ver, incluso sin conexión.',
+      c3t: 'Mira donde sea', c3d: 'Transmite en tu teléfono, tablet, laptop y TV - todo incluido.',
+      c4t: 'Cero anuncios', c4d: 'Disfruta de películas y series ilimitadas sin una sola interrupción comercial.',
+      c5t: 'Nuevo cada día', c5d: 'Películas, series y exclusivas nuevas añadidas cada día.',
+      c6t: 'Para toda la familia', c6d: 'Múltiples perfiles con controles parentales protegidos con PIN para niños.' },
+    faq: { t: 'Preguntas Frecuentes', c: '¿Listo para mirar? Ingresa tu email para crear o reactivar tu membresía.',
+      q1: '¿Qué es Flixcentral+?', a1: 'Flixcentral+ es un servicio de streaming que ofrece películas premiadas, series, anime, documentales y más en miles de dispositivos conectados a internet. Mira todo lo que quieras, cuando quieras, sin un solo comercial - todo por un precio mensual bajo.',
+      q2: '¿Cuánto cuesta?', a2: 'Los planes van desde $7.99 hasta $15.99 al mes. Sin costos extra, sin contratos, sin cargos ocultos. Cancela en línea cuando quieras.',
+      q3: '¿Dónde puedo ver?', a3: 'Mira al instante desde cualquier smartphone, tablet, computadora o TV con la app de Flixcentral+. Disponible en Smart TVs, consolas, reproductores de streaming y más.',
+      q4: '¿Cómo cancelo?', a4: 'Sin contratos, sin compromisos. Cancela tu cuenta en línea con solo dos clics. Sin cargos de cancelación - empieza o detente cuando quieras.',
+      q5: '¿Qué puedo ver?', a5: 'Una extensa biblioteca de largometrajes, documentales, series, anime y exclusivos Originales de Flixcentral+. Actualizado diariamente.',
+      q6: '¿Es Flixcentral+ bueno para niños?', a6: 'La experiencia Flixcentral+ Kids está incluida. Los padres mantienen el control con controles parentales protegidos con PIN y perfiles dedicados para niños.' },
+    foot: { ph: '¿Preguntas? Llama al', br: 'Flixcentral+ © 2026', tmdb: 'Desarrollado por TMDB' }
   }
 };
 
@@ -141,7 +141,7 @@ function applyLang() {
   byId('foot.br').forEach(e => e.textContent = t.foot.br);
   byId('foot.tmdb').forEach(e => e.textContent = t.foot.tmdb);
 
-  const lbl = lang === 'en' ? 'English' : 'Espa&ntilde;ol';
+  const lbl = lang === 'en' ? 'English' : 'Español';
   $$('.lang-btn').forEach(b => b.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> ${lbl}`);
 }
 
@@ -252,9 +252,9 @@ async function fetchTrending() {
     movies.forEach((item, i) => {
       const title = item.title || item.name;
       const year = (item.release_date || item.first_air_date || '').split('-')[0] || '';
-      const type = item.media_type === 'tv' ? (isEs ? 'Serie' : 'Series') : (isEs ? 'Pel&iacute;cula' : 'Movie');
+      const type = item.media_type === 'tv' ? (isEs ? 'Serie' : 'Series') : (isEs ? 'Película' : 'Movie');
       const poster = item.poster_path ? `${TMDB_IMG}/w342${item.poster_path}` : null;
-      const rating = item.vote_average ? Number(item.vote_average).toFixed(1) : '&mdash;';
+      const rating = item.vote_average ? Number(item.vote_average).toFixed(1) : '—';
       const colors = ['#e50914','#564d4d','#221f1f','#831010','#0f4c75','#4a0e4e','#1b4332','#5c2e16','#6b21a8','#1a1a2e'];
 
       const c = document.createElement('div'); c.className = 'card'; c.dataset.rank = i + 1;
@@ -271,7 +271,7 @@ async function fetchTrending() {
       const title = item.title || item.name;
       const year = (item.release_date || '').split('-')[0] || '';
       const poster = item.poster_path ? `${TMDB_IMG}/w185${item.poster_path}` : null;
-      const rating = item.vote_average ? Number(item.vote_average).toFixed(1) : '&mdash;';
+      const rating = item.vote_average ? Number(item.vote_average).toFixed(1) : '—';
       const c = document.createElement('div'); c.className = 'card'; c.style.cssText = 'flex:0 0 auto;width:140px';
       c.innerHTML = `<div class="card-img" style="background:#1a1a1a">${poster ? `<img src="${poster}" alt="${title}" onerror="this.style.display='none'" loading="lazy" width="140" height="210" />` : ''}<div class="card-img-overlay"></div><div class="card-info"><div class="card-rating">&#9733; ${rating}</div><h4>${title}</h4><p>${TR[lang].tr.mov}${year ? ` - ${year}` : ''}</p></div></div>`;
       trk.appendChild(c);
