@@ -168,6 +168,13 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 :focus-visible{outline:2px solid #e50914;outline-offset:2px;border-radius:4px}
 button:focus:not(:focus-visible){outline:none}
 
+/* Scrollbar */
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#0a0a0a}
+::-webkit-scrollbar-thumb{background:rgba(229,9,20,.4);border-radius:10px;border:2px solid #0a0a0a}
+::-webkit-scrollbar-thumb:hover{background:rgba(229,9,20,.6)}
+*{scrollbar-width:thin;scrollbar-color:rgba(229,9,20,.4) #0a0a0a}
+
 /* Reduced motion */
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
