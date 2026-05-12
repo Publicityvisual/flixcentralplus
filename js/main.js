@@ -271,7 +271,7 @@ async function fetchTrending() {
       const colors = ['#e50914','#564d4d','#221f1f','#831010','#0f4c75','#4a0e4e','#1b4332','#5c2e16','#6b21a8','#1a1a2e'];
 
       const c = document.createElement('div'); c.className = 'card'; c.dataset.rank = i + 1;
-      c.innerHTML = `<div class="card-img" style="background:${colors[i]}">${poster ? `<img src="${poster}" alt="${title}" loading="lazy" width="180" height="270" onerror="this.style.display='none'" />` : ''}<div class="card-img-overlay"></div><div class="card-rank">${i + 1}</div><div class="card-info"><div class="card-rating">&#9733; ${rating}</div><h4>${title}</h4><p>${type}${year ? ` - ${year}` : ''}</p></div></div>`;
+      c.innerHTML = `<div class="card-img" style="background:${colors[i]}">${poster ? `<img src="${poster}" alt="${title}" loading="lazy" width="180" height="270" onerror="this.style.display='none'" />` : ''}<div class="card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19" fill="#fff"/></svg></div><div class="card-img-overlay"></div><div class="card-rank">${i + 1}</div><div class="card-info"><div class="card-rating">&#9733; ${rating}</div><h4>${title}</h4><p>${type}${year ? ` - ${year}` : ''}</p></div></div>`;
       trk.appendChild(c);
     });
 
@@ -286,7 +286,7 @@ async function fetchTrending() {
       const poster = item.poster_path ? `${TMDB_IMG}/w185${item.poster_path}` : null;
       const rating = item.vote_average ? Number(item.vote_average).toFixed(1) : '—';
       const c = document.createElement('div'); c.className = 'card'; c.style.cssText = 'flex:0 0 auto;width:140px';
-      c.innerHTML = `<div class="card-img" style="background:#1a1a1a">${poster ? `<img src="${poster}" alt="${title}" onerror="this.style.display='none'" loading="lazy" width="140" height="210" />` : ''}<div class="card-img-overlay"></div><div class="card-info"><div class="card-rating">&#9733; ${rating}</div><h4>${title}</h4><p>${TR[lang].tr.mov}${year ? ` - ${year}` : ''}</p></div></div>`;
+      c.innerHTML = `<div class="card-img" style="background:#1a1a1a">${poster ? `<img src="${poster}" alt="${title}" onerror="this.style.display='none'" loading="lazy" width="140" height="210" />` : ''}<div class="card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19" fill="#fff"/></svg></div><div class="card-img-overlay"></div><div class="card-info"><div class="card-rating">&#9733; ${rating}</div><h4>${title}</h4><p>${TR[lang].tr.mov}${year ? ` - ${year}` : ''}</p></div></div>`;
       trk.appendChild(c);
     });
   } catch (e) { console.warn('TMDB trending failed:', e?.message); }
