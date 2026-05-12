@@ -167,8 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const ham = $('#hamburger'), mm = $('#mobileMenu');
-  ham.addEventListener('click', () => { ham.classList.toggle('active'); mm.classList.toggle('open'); });
-  $$('a', mm).forEach(l => l.addEventListener('click', () => { ham.classList.remove('active'); mm.classList.remove('open'); }));
+  ham.addEventListener('click', () => {
+    const open = mm.classList.contains('open');
+    ham.classList.toggle('active'); mm.classList.toggle('open');
+    ham.setAttribute('aria-expanded', !open);
+  });
+  $$('a', mm).forEach(l => l.addEventListener('click', () => { ham.classList.remove('active'); mm.classList.remove('open'); ham.setAttribute('aria-expanded', 'false'); }));
 
   const trk = $('#trendingTrack'), pv = $('.scroll-prev'), nx = $('.scroll-next');
   const sa = () => { const c = trk?.querySelector('.card'); return c ? c.offsetWidth + 12 : 200; };
@@ -187,13 +191,20 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const inp = e.target.querySelector('.hero-input');
     const email = inp?.value.trim();
-    if (!email) return;
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      inp.style.borderColor = '#e50914';
+      inp.placeholder = TR[lang].hero.pl;
+      setTimeout(() => { inp.style.borderColor = ''; }, 2000);
+      return;
+    }
+    inp.style.borderColor = '#2e7d32';
     const btn = e.target.querySelector('.btn-hero');
     const orig = btn.innerHTML;
     btn.innerHTML = TR[lang].hero.al;
     setTimeout(() => {
       btn.innerHTML = TR[lang].hero.ch;
       inp.value = '';
+      inp.style.borderColor = '';
       setTimeout(() => { btn.innerHTML = orig; }, 2500);
     }, 1200);
   };
@@ -242,8 +253,10 @@ async function fetchTrending() {
       fetch(`https://api.themoviedb.org/3/movie/popular?language=${lp}&region=${reg}&page=1`, { headers: { Authorization: `Bearer ${TMDB_TOKEN}` } })
     ]);
     const [td, pd] = await Promise.all([tr.json(), pr.json()]);
-    const movies = td.results?.slice(0, 10);
-    const popular = pd.results?.slice(0, 6);
+    const cutoff = new Date(Date.now() - 90 * 86400000).toISOString().split('T')[0];
+    const isReleased = item => !item.release_date || item.release_date < cutoff;
+    const movies = td.results?.filter(isReleased).slice(0, 10);
+    const popular = pd.results?.filter(isReleased).slice(0, 6);
     if (!movies?.length) return;
 
     trk.innerHTML = '';
