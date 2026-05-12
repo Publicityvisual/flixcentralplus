@@ -84,7 +84,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 .carousel-track::-webkit-scrollbar{display:none}
 
 /* Cards Premium */
-.card{flex:0 0 auto;width:185px;cursor:pointer;transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s cubic-bezier(.22,1,.36,1);position:relative;border-radius:14px}
+.card{flex:0 0 auto;width:185px;cursor:pointer;transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s cubic-bezier(.22,1,.36,1);position:relative;border-radius:14px;overflow:visible}
 .card:hover{transform:scale(1.08) translateY(-6px);z-index:10;box-shadow:0 25px 70px rgba(0,0,0,.7),0 0 40px rgba(229,9,20,.12)}
 .card-img{width:100%;aspect-ratio:2/3;border-radius:14px;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
 .card-img::after{content:'';position:absolute;inset:0;border-radius:14px;border:1px solid rgba(255,255,255,.06);pointer-events:none}
@@ -96,14 +96,14 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 .card-play svg{width:20px;height:20px;fill:#fff;margin-left:3px}
 .card:hover .card-play{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .card-play:hover{background:#e50914;transform:translate(-50%,-50%) scale(1.1)!important;box-shadow:0 0 50px rgba(229,9,20,.6)}
-.card-rank{position:absolute;top:10px;left:10px;font-size:.7rem;font-weight:800;color:#fff;background:linear-gradient(135deg,#e50914,#ff3b3b);backdrop-filter:blur(8px);width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;z-index:2;box-shadow:0 2px 12px rgba(229,9,20,.5);text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.card-rank{position:absolute;bottom:55px;left:-6px;font-size:3.5rem;font-weight:900;color:rgba(0,0,0,.4);z-index:1;line-height:1;text-shadow:0 0 0 #e50914,0 0 20px rgba(0,0,0,.5);pointer-events:none;font-family:'Inter',sans-serif;letter-spacing:-4px;transition:all .4s cubic-bezier(.22,1,.36,1)}
+.card:hover .card-rank{color:rgba(229,9,20,.25);font-size:3.8rem}
+.card-rank-num{position:absolute;top:10px;left:10px;font-size:.7rem;font-weight:800;color:#fff;background:linear-gradient(135deg,#e50914,#ff3b3b);backdrop-filter:blur(8px);width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;z-index:2;box-shadow:0 2px 12px rgba(229,9,20,.5);text-shadow:0 1px 2px rgba(0,0,0,.3);display:none}
 .card-rating{position:absolute;top:10px;right:10px;font-size:.7rem;color:#ffd93d;font-weight:700;text-shadow:0 1px 6px rgba(0,0,0,.5);z-index:2;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);padding:3px 8px;border-radius:6px;letter-spacing:.5px}
 .card-info{padding:14px 12px;width:100%;position:relative;z-index:2;transform:translateY(0);transition:transform .4s cubic-bezier(.22,1,.36,1)}
 .card:hover .card-info{transform:translateY(-4px)}
 .card-info h4{font-size:.88rem;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 4px rgba(0,0,0,.5)}
 .card-info p{font-size:.68rem;color:#a0a0a0;text-shadow:0 1px 4px rgba(0,0,0,.3)}
-.card-tmdb{width:140px}
-.card-separator{width:130px;pointer-events:none}
 
 /* Skeleton loading */
 .skeleton{pointer-events:none}.skeleton .card-img{animation:skeletonPulse 1.5s ease-in-out infinite}
