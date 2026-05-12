@@ -1,13 +1,14 @@
 # Flixcentral+
 
-Plataforma de streaming moderna con TMDB API, soporte multi-idioma y despliegue en Firebase.
+Plataforma de streaming moderna con TMDB API, soporte multi-idioma.
 
 ## Stack
 
 - **Vite 8** — Build tool ultrarrápido
 - **Tailwind CSS v4** — Utility-first CSS
 - **TMDB API** — Datos reales de películas y series
-- **Firebase Hosting** — Despliegue y hosting
+- **GitHub Pages** — Hosting automático desde el repo
+- **Firebase Hosting** — Hosting secundario
 - **i18n** — Sistema de internacionalización EN/ES con persistencia
 
 ## Características
@@ -18,21 +19,24 @@ Plataforma de streaming moderna con TMDB API, soporte multi-idioma y despliegue 
 - Acordeón FAQ interactivo
 - Formulario de email con feedback animado
 - Optimizado para SEO (sitemap.xml, robots.txt, meta tags)
-- Despliegue continuo via Firebase Hosting
+- Despliegue automático via GitHub Pages
 
 ## Desarrollo
 
 ```bash
 npm install
 npm run dev     # Servidor de desarrollo en localhost:3000
-npm run build   # Build de producción en dist/
+npm run build   # Build de producción en docs/
 npm run preview # Vista previa del build
 ```
 
 ## Despliegue
 
+**GitHub Pages** (automático): pushea a master → https://publicityvisual.github.io/flixcentralplus/
+
+**Firebase** (manual):
 ```bash
-firebase deploy --only hosting
+python deploy.py
 ```
 
-Sitio en vivo: [https://flixcentralplus-33dc5.web.app](https://flixcentralplus-33dc5.web.app)
+Sitios en vivo: [GitHub Pages](https://publicityvisual.github.io/flixcentralplus/) · [Firebase](https://flixcentralplus-33dc5.web.app)
