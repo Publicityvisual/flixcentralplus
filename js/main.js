@@ -9,7 +9,7 @@ const TR = {
   en: {
     nav: { t: 'Trending', p: 'Plans', f: 'Features', q: 'FAQ', si: 'Sign In' },
     hero: { b: 'NEW SEASON', t1: 'Unlimited', t2: 'Movies & Series', s: 'Watch everywhere. Cancel anytime. Your next binge starts here.', c: 'Get Started', n: 'Ready to watch? Enter your email to create or restart your membership.', pl: 'Enter your email', al: 'Almost there...', ch: 'Check your email!' },
-    tr: { t: 'Trending Now', pop: 'Popular<br>Movies →', mov: 'Movie', ser: 'Series' },
+    tr: { t: 'Trending Now' },
     pl: { t: 'Choose Your Plan', d: 'Watch without limits.', b: 'Basic', s: 'Standard', p: 'Premium', pop: 'Most Popular', m: '/month', go: 'Get Started', ok: 'selected',
       f1: '720p', f2: '1 device', f3: 'Ad-free',
       s1: '1080p', s2: '2 devices', s3: 'Downloads', s4: 'Ad-free',
@@ -33,7 +33,7 @@ const TR = {
   es: {
     nav: { t: 'Tendencias', p: 'Planes', f: 'Características', q: 'FAQ', si: 'Iniciar Sesión' },
     hero: { b: 'NUEVA TEMPORADA', t1: 'Películas y', t2: 'Series Ilimitadas', s: 'Mira donde quieras. Cancela cuando quieras. Tu próximo maratón empieza aquí.', c: 'Comenzar', n: '¿Listo para mirar? Ingresa tu email para crear o reactivar tu membresía.', pl: 'Ingresa tu email', al: 'Casi listo...', ch: '¡Revisa tu email!' },
-    tr: { t: 'En Tendencia', pop: 'Películas<br>Populares →', mov: 'Película', ser: 'Serie' },
+    tr: { t: 'En Tendencia' },
     pl: { t: 'Elige tu Plan', d: 'Mira sin límites.', b: 'Básico', s: 'Estándar', p: 'Premium', pop: 'Más Popular', m: '/mes', go: 'Empezar', ok: 'seleccionado',
       f1: '720p', f2: '1 dispositivo', f3: 'Sin anuncios',
       s1: '1080p', s2: '2 dispositivos', s3: 'Descargas', s4: 'Sin anuncios',
@@ -265,16 +265,10 @@ async function fetchTrending() {
 
   try {
     const lp = lang === 'es' ? 'es-MX' : 'en-US';
-    const reg = lang === 'es' ? 'MX' : 'US';
-    const [tr, pr] = await Promise.all([
-      fetch(`https://api.themoviedb.org/3/trending/all/week?language=${lp}`, { headers: { Authorization: `Bearer ${TMDB_TOKEN}` } }),
-      fetch(`https://api.themoviedb.org/3/movie/popular?language=${lp}&region=${reg}&page=1`, { headers: { Authorization: `Bearer ${TMDB_TOKEN}` } })
-    ]);
-    const [td, pd] = await Promise.all([tr.json(), pr.json()]);
+    const r = await fetch(`https://api.themoviedb.org/3/trending/all/week?language=${lp}`, { headers: { Authorization: `Bearer ${TMDB_TOKEN}` } });
+    const d = await r.json();
     const cutoff = new Date(Date.now() - 90 * 86400000).toISOString().split('T')[0];
-    const isReleased = item => !item.release_date || item.release_date < cutoff;
-    const movies = td.results?.filter(isReleased).slice(0, 10);
-    const popular = pd.results?.filter(isReleased).slice(0, 6);
+    const movies = d.results?.filter(item => !item.release_date || item.release_date < cutoff).slice(0, 10);
     if (!movies?.length) return;
 
     trk.innerHTML = '';
@@ -293,20 +287,6 @@ async function fetchTrending() {
       trk.appendChild(c);
     });
 
-    const sep = document.createElement('div');
-    sep.style.cssText = 'flex:0 0 auto;width:120px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:#e50914;text-align:center;line-height:1.3';
-    sep.innerHTML = TR[lang].tr.pop;
-    trk.appendChild(sep);
-
-    popular.forEach(item => {
-      const title = item.title || item.name;
-      const year = (item.release_date || '').split('-')[0] || '';
-      const poster = item.poster_path ? `${TMDB_IMG}/w185${item.poster_path}` : null;
-      const rating = item.vote_average ? Number(item.vote_average).toFixed(1) : '—';
-      const c = document.createElement('div'); c.className = 'card'; c.style.cssText = 'flex:0 0 auto;width:140px';
-      c.innerHTML = `<div class="card-img" style="background:#1a1a1a">${poster ? `<img src="${poster}" alt="${title}" onerror="this.style.display='none'" loading="lazy" width="140" height="210" />` : ''}<div class="card-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19" fill="#fff"/></svg></div><div class="card-img-overlay"></div><div class="card-info"><div class="card-rating">&#9733; ${rating}</div><h4>${title}</h4><p>${TR[lang].tr.mov}${year ? ` - ${year}` : ''}</p></div></div>`;
-      trk.appendChild(c);
-    });
   } catch (e) { console.warn('TMDB trending failed:', e?.message); }
 }
 
