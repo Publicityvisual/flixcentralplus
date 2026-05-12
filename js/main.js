@@ -1,4 +1,5 @@
-const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN || 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZjU4NjAxYzFiZGU3NjgxOGRjYmYxOTJhODNmZmEzNiIsIm5iZiI6MTc0NzA5MTIzMS43OTgsInN1YiI6IjY4MjI3ZjFmYjkwYzI3ZDA5NWFkOTcyNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ov20zIVexbG7ltCwzwsBGz5jAn_WsQDIeVkw7qv7jyo';
+const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
+if (!TMDB_TOKEN) console.warn('TMDB token missing. Set VITE_TMDB_TOKEN in .env');
 const TMDB_IMG = 'https://image.tmdb.org/t/p';
 
 const TR = {
@@ -218,6 +219,7 @@ async function fetchHero() {
     if (top?.backdrop_path) {
       const hero = $('#hero');
       const img = new Image();
+      img.fetchPriority = 'high';
       img.src = `${TMDB_IMG}/original${top.backdrop_path}`;
       img.onload = () => {
         hero.style.backgroundImage = `url(${img.src})`;

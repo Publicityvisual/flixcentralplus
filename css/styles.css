@@ -36,7 +36,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
 .hamburger.active span:nth-child(2){opacity:0}
 .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(0,0,0,.96);backdrop-filter:blur(24px);padding:20px 24px;flex-direction:column;gap:16px;z-index:999;border-bottom:1px solid #222}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;bottom:0;background:rgba(0,0,0,.96);backdrop-filter:blur(24px);padding:20px 24px;flex-direction:column;gap:16px;z-index:999;border-bottom:1px solid #222;overflow-y:auto}
 .mobile-menu.open{display:flex}
 .mobile-menu a{color:#b3b3b3;text-decoration:none;font-size:1.1rem;font-weight:500;padding:8px 0}
 
