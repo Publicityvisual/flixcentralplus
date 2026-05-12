@@ -248,12 +248,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (h !== '#') { e.preventDefault(); $(h)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   }));
 
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; } });
+  // Scroll progress
+  const prog = document.createElement('div');
+  prog.id = 'scrollProgress';
+  document.getElementById('app')?.prepend(prog);
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = h > 0 ? `${(window.scrollY / h) * 100}%` : '0';
+  }, { passive: true });
+
+  // Staggered reveal
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
   }, { threshold: 0.08 });
-  $$('.plan-card, .feature-card, .faq-item').forEach(el => {
-    el.style.opacity = '0'; el.style.transform = 'translateY(24px)'; el.style.transition = 'opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1)';
-    obs.observe(el);
+  $$('.plan-card, .feature-card, .faq-item, .section-header, .hero-content').forEach((el, i) => {
+    el.classList.add('reveal');
+    if (i > 0) el.classList.add(`reveal-delay-${Math.min(i, 6)}`);
+    revealObs.observe(el);
   });
 
   fetchTrending();
