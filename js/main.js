@@ -283,7 +283,7 @@ async function fetchTrending() {
       const colors = ['#e50914','#564d4d','#221f1f','#831010','#0f4c75','#4a0e4e','#1b4332','#5c2e16','#6b21a8','#1a1a2e'];
 
       const c = document.createElement('div'); c.className = 'card'; c.dataset.rank = i + 1;
-      c.innerHTML = `<div class="card-rank-bg"></div><div class="card-rank">${i + 1}</div><div class="w-full max-h-full aspect-[7/9] overflow-hidden" style="border-radius:18px;background:${colors[i]};box-shadow:0 25px 50px rgba(0,0,0,.35)"><figure class="m-0 leading-[0]"><picture class="inline-block align-top w-full h-full object-cover [&_img]:w-full [&_img]:max-h-full [&_img]:object-cover" style="border-radius:18px">${poster ? `<source media="(max-width: 440px)" srcset="${poster} 1x, ${poster.replace('w342','w500')} 2x"><source media="(min-width: 441px) and (max-width: 768px)" srcset="${poster} 1x, ${poster.replace('w342','w500')} 2x"><source media="(min-width: 769px)" srcset="${poster.replace('w342','w500')} 1x, ${poster.replace('w342','w780')} 2x"><img src="${poster}" width="170" height="272" alt="${title}" loading="lazy" fetchpriority="auto" class="h-auto w-full max-w-full" onerror="this.parentElement.parentElement.parentElement.style.background='${colors[i]}'" style="display:block" />` : ''}</picture></figure></div>`;
+      c.innerHTML = `<div class="card-inner">${poster ? `<img src="${poster}" alt="${title}" width="180" height="260" loading="lazy" fetchpriority="auto" onerror="this.style.background='${colors[i]}'" />` : ''}<div class="number-bg"></div><div class="number">${i + 1}</div></div>`;
       trk.appendChild(c);
     });
 
