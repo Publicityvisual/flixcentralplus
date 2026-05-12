@@ -267,8 +267,9 @@ async function fetchTrending() {
     const lp = lang === 'es' ? 'es-MX' : 'en-US';
     const r = await fetch(`https://api.themoviedb.org/3/trending/all/week?language=${lp}`, { headers: { Authorization: `Bearer ${TMDB_TOKEN}` } });
     const d = await r.json();
-    const cutoff = new Date(Date.now() - 90 * 86400000).toISOString().split('T')[0];
-    const movies = d.results?.filter(item => !item.release_date || item.release_date < cutoff).slice(0, 10);
+    const cutoff = new Date(Date.now() - 60 * 86400000).toISOString().split('T')[0];
+    const all = d.results?.filter(item => !item.release_date || item.release_date < cutoff) || [];
+    const movies = all.slice(0, 10);
     if (!movies?.length) return;
 
     trk.innerHTML = '';
