@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sonomusic-ea2da.firebaseapp.com/sitemap.xml
