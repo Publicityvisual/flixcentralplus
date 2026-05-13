@@ -254,13 +254,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }));
 
   // Scroll progress
-  const prog = document.createElement('div');
-  prog.id = 'scrollProgress';
-  document.getElementById('app')?.prepend(prog);
-  window.addEventListener('scroll', () => {
-    const h = document.documentElement.scrollHeight - window.innerHeight;
-    prog.style.width = h > 0 ? `${(window.scrollY / h) * 100}%` : '0';
-  }, { passive: true });
+  const prog = document.getElementById('scrollProgress');
+  if (prog) {
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      prog.style.width = h > 0 ? `${(window.scrollY / h) * 100}%` : '0';
+    }, { passive: true });
+  }
 
   // Staggered reveal
   const revealObs = new IntersectionObserver(entries => {
