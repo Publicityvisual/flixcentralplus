@@ -184,13 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const trk = $('#trendingTrack'), pv = $('.scroll-prev'), nx = $('.scroll-next');
   const sa = () => { const c = trk?.querySelector('.card'); return c ? c.offsetWidth + 14 : 200; };
-  const scrollCar = (dir) => {
-    if (!trk) return;
-    const amt = sa() * (dir > 0 ? 2 : 2);
-    trk.scrollBy({ left: amt, behavior: 'smooth' });
-  };
-  pv?.addEventListener('click', () => scrollCar(-1));
-  nx?.addEventListener('click', () => scrollCar(1));
+  pv?.addEventListener('click', () => trk?.scrollBy({ left: -(sa() * 2), behavior: 'smooth' }));
+  nx?.addEventListener('click', () => trk?.scrollBy({ left: sa() * 2, behavior: 'smooth' }));
 
   $$('.faq-item').forEach(item => {
     item.querySelector('.faq-question')?.addEventListener('click', () => {
@@ -285,18 +280,13 @@ async function fetchTrending() {
     const lp = lang === 'es' ? 'es-MX' : 'en-US';
     const r = await fetch(`https://api.themoviedb.org/3/trending/all/week?language=${lp}`, { headers: { Authorization: `Bearer ${TMDB_TOKEN}` } });
     const d = await r.json();
-    const cutoff = new Date(Date.now() - 60 * 86400000).toISOString().split('T')[0];
-    const all = d.results?.filter(item => !item.release_date || item.release_date < cutoff) || [];
-    const movies = all.slice(0, 10);
+    const movies = d.results?.filter(item => item.poster_path).slice(0, 10);
     if (!movies?.length) return;
 
     trk.innerHTML = '';
-    const isEs = lang === 'es';
 
     movies.forEach((item, i) => {
       const title = item.title || item.name;
-      const year = (item.release_date || item.first_air_date || '').split('-')[0] || '';
-      const type = item.media_type === 'tv' ? (isEs ? 'Serie' : 'Series') : (isEs ? 'Película' : 'Movie');
       const poster = item.poster_path ? `${TMDB_IMG}/w342${item.poster_path}` : null;
       const rating = item.vote_average ? Number(item.vote_average).toFixed(1) : '—';
       const colors = ['#e50914','#564d4d','#221f1f','#831010','#0f4c75','#4a0e4e','#1b4332','#5c2e16','#6b21a8','#1a1a2e'];
@@ -321,22 +311,42 @@ async function fetchHero() {
 
     const hero = $('#hero');
     if (!hero) return;
-    hero.style.transition = 'background-image 1.2s cubic-bezier(.22,1,.36,1)';
     hero.style.backgroundSize = 'cover';
     hero.style.backgroundPosition = 'center top';
 
+    // Create overlay for crossfade
+    let overlay = document.getElementById('heroOverlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'heroOverlay';
+      overlay.style.cssText = 'position:absolute;inset:0;z-index:0;background-size:cover;background-position:center top;opacity:0;transition:opacity 1.2s ease';
+      hero.insertBefore(overlay, hero.firstChild);
+    }
+
     let i = 0;
-    const loadBg = (idx) => {
+    const preload = (idx, cb) => {
       const img = new Image();
+      img.onload = cb;
+      img.onerror = cb;
       img.src = `${TMDB_IMG}/original${backdrops[idx].backdrop_path}`;
-      img.onload = () => { hero.style.backgroundImage = `url(${img.src})`; };
+      return img;
     };
 
-    loadBg(0);
+    preload(0, () => {
+      hero.style.backgroundImage = `url(${TMDB_IMG}/original${backdrops[0].backdrop_path})`;
+    });
+
     clearInterval(heroInterval);
     heroInterval = setInterval(() => {
       i = (i + 1) % backdrops.length;
-      loadBg(i);
+      const next = preload(i, () => {
+        overlay.style.backgroundImage = `url(${TMDB_IMG}/original${backdrops[i].backdrop_path})`;
+        overlay.style.opacity = '1';
+        setTimeout(() => {
+          hero.style.backgroundImage = `url(${TMDB_IMG}/original${backdrops[i].backdrop_path})`;
+          overlay.style.opacity = '0';
+        }, 1200);
+      });
     }, 6000);
   } catch (e) { console.warn('TMDB hero failed:', e?.message); }
 }
