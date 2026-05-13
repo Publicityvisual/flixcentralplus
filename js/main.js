@@ -183,9 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const trk = $('#trendingTrack'), pv = $('.scroll-prev'), nx = $('.scroll-next');
-  const sa = () => { const c = trk?.querySelector('.card'); return c ? c.offsetWidth + 12 : 200; };
-  pv?.addEventListener('click', () => trk?.scrollBy({ left: -sa() * 2, behavior: 'smooth' }));
-  nx?.addEventListener('click', () => trk?.scrollBy({ left: sa() * 2, behavior: 'smooth' }));
+  const sa = () => { const c = trk?.querySelector('.card'); return c ? c.offsetWidth + 14 : 200; };
+  const scrollCar = (dir) => {
+    if (!trk) return;
+    const amt = sa() * (dir > 0 ? 2 : 2);
+    trk.scrollBy({ left: amt, behavior: 'smooth' });
+  };
+  pv?.addEventListener('click', () => scrollCar(-1));
+  nx?.addEventListener('click', () => scrollCar(1));
 
   $$('.faq-item').forEach(item => {
     item.querySelector('.faq-question')?.addEventListener('click', () => {
