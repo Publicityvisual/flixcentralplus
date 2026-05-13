@@ -4,25 +4,30 @@ Write-Host "==================================" -ForegroundColor Cyan
 Write-Host " Flixcentral+ - Configuración Automática" -ForegroundColor Cyan
 Write-Host "==================================" -ForegroundColor Cyan
 
-# Extraer Firebase CI token de la sesión local
-$fbConfig = Get-Content "$env:USERPROFILE\.config\configstore\firebase-tools.json" | ConvertFrom-Json
-$FB_TOKEN = $fbConfig.tokens.refresh_token
+# Extraer Firebase CI token de la sesión local si existe.
+$firebaseConfigPath = "$env:USERPROFILE\.config\configstore\firebase-tools.json"
+$FB_TOKEN = $null
+if (Test-Path -LiteralPath $firebaseConfigPath) {
+    $fbConfig = Get-Content $firebaseConfigPath | ConvertFrom-Json
+    $FB_TOKEN = $fbConfig.tokens.refresh_token
+}
 
 Write-Host ""
 Write-Host "Paso 1: Autenticar GitHub CLI" -ForegroundColor Yellow
 $auth = gh auth status 2>&1
-if ($LASTEXITCODE -ne 0) {
+$isGhAuthed = $LASTEXITCODE -eq 0
+if (-not $isGhAuthed) {
     Write-Host "  → Abriendo autenticación de GitHub..." -ForegroundColor Gray
     gh auth login
+    $isGhAuthed = $LASTEXITCODE -eq 0
 } else {
     Write-Host "  ✅ GitHub CLI ya autenticado" -ForegroundColor Green
 }
 
 Write-Host ""
 Write-Host "Paso 2: Configurar FIREBASE_TOKEN en GitHub Secrets" -ForegroundColor Yellow
-if (gh auth status 2>$null) {
+if ($FB_TOKEN -and $isGhAuthed) {
     Write-Host "  → Configurando secret vía API..." -ForegroundColor Gray
-    $pubKey = gh api repos/Publicityvisual/flixcentralplus/actions/secrets/public-key | ConvertFrom-Json
     # Encriptar y setear el secret requiere libsodium, lo hacemos vía CLI
     gh secret set FIREBASE_TOKEN --repo Publicityvisual/flixcentralplus --body "$FB_TOKEN" 2>&1
     if ($LASTEXITCODE -eq 0) {
@@ -30,31 +35,21 @@ if (gh auth status 2>$null) {
     } else {
         Write-Host "  ⚠ No se pudo configurar automáticamente" -ForegroundColor Red
         start "https://github.com/Publicityvisual/flixcentralplus/settings/secrets/actions"
-        Write-Host "  → Agrega manualmente:" -ForegroundColor Gray
-        Write-Host "    Name: FIREBASE_TOKEN" -ForegroundColor White
-        Write-Host "    Value: $FB_TOKEN" -ForegroundColor White
+        Write-Host "  → Agrega manualmente el secret FIREBASE_TOKEN desde tu sesión local." -ForegroundColor Gray
     }
 } else {
     if (-not $SkipBrowser) {
         start "https://github.com/Publicityvisual/flixcentralplus/settings/secrets/actions"
     }
-    Write-Host "  → Agrega manualmente en GitHub Secrets:" -ForegroundColor Gray
-    Write-Host "    Name: FIREBASE_TOKEN" -ForegroundColor White
-    Write-Host "    Value: $FB_TOKEN" -ForegroundColor White
+    Write-Host "  → Agrega manualmente el secret FIREBASE_TOKEN desde tu sesión local." -ForegroundColor Gray
 }
 
 Write-Host ""
-Write-Host "Paso 3: Configurar token GitHub en remote (opcional)" -ForegroundColor Yellow
+Write-Host "Paso 3: Verificar remote GitHub" -ForegroundColor Yellow
 if (-not $SkipBrowser) {
-    start "https://github.com/settings/tokens"
+    start "https://github.com/Publicityvisual/flixcentralplus"
 }
-$pat = Read-Host "  → Pega un PAT nuevo aquí (o Enter para omitir)"
-if ($pat) {
-    git remote set-url origin "https://$pat@github.com/Publicityvisual/flixcentralplus.git"
-    Write-Host "  ✅ Remote actualizado" -ForegroundColor Green
-    Write-Host "  → Haz push para activar CI/CD..." -ForegroundColor Yellow
-    git push
-}
+Write-Host "  → No se guardan PATs en el remote. Usa gh auth login o Git Credential Manager para autenticar push." -ForegroundColor Gray
 
 Write-Host ""
 Write-Host "==================================" -ForegroundColor Cyan

@@ -61,6 +61,73 @@ if (!['en','es'].includes(lang)) lang = 'en';
 
 const $ = (s, p) => (p || document).querySelector(s);
 const $$ = (s, p) => [...((p || document).querySelectorAll(s))];
+const PLAN_KEY = { basic: 'b', standard: 's', premium: 'p' };
+const FALLBACK_TITLES = {
+  en: ['Red Night', 'Final Signal', 'Shadow City', 'Northern Lights', 'Deep Orbit', 'The Last Run', 'After Midnight', 'Wild Coast', 'Neon Code', 'Family Vault'],
+  es: ['Noche Roja', 'Senal Final', 'Ciudad Sombra', 'Luces del Norte', 'Orbita Profunda', 'La Ultima Ruta', 'Despues de Medianoche', 'Costa Salvaje', 'Codigo Neon', 'Boveda Familiar']
+};
+const FALLBACK_COLORS = ['#e50914', '#564d4d', '#221f1f', '#831010', '#0f4c75', '#4a0e4e', '#1b4332', '#5c2e16', '#6b21a8', '#1a1a2e'];
+let heroInterval;
+
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>'"]/g, (char) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;'
+  }[char]));
+}
+
+function getFallbackTrending() {
+  return (FALLBACK_TITLES[lang] || FALLBACK_TITLES.en).map(title => ({ title }));
+}
+
+function updatePlanButtons() {
+  const saved = localStorage.getItem('flix_plan');
+  $$('.btn-plan').forEach(btn => {
+    const key = PLAN_KEY[btn.dataset.plan];
+    btn.style.background = '';
+    btn.textContent = key ? `${TR[lang].pl.go} ${TR[lang].pl[key]}` : TR[lang].pl.go;
+  });
+
+  if (saved && PLAN_KEY[saved]) {
+    $$(`.btn-plan[data-plan="${saved}"]`).forEach(btn => {
+      btn.innerHTML = `&#10003; ${TR[lang].pl.ok}`;
+      btn.style.background = '#2e7d32';
+    });
+  }
+}
+
+function renderTrendingCards(items) {
+  const trk = $('#trendingTrack');
+  if (!trk) return;
+
+  trk.innerHTML = '';
+  items.slice(0, 10).forEach((item, i) => {
+    const rawTitle = item.title || item.name || FALLBACK_TITLES.en[i] || 'Flixcentral+ Original';
+    const safeTitle = escapeHTML(rawTitle);
+    const poster = item.poster_path ? `${TMDB_IMG}/w342${item.poster_path}` : '';
+    const color = FALLBACK_COLORS[i % FALLBACK_COLORS.length];
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.rank = i + 1;
+    card.setAttribute('aria-label', `${i + 1}. ${rawTitle}`);
+    card.innerHTML = `<div class="card-inner"><div class="poster-fallback" style="--poster-color:${color}"><span>${safeTitle}</span></div>${poster ? `<img src="${poster}" alt="${safeTitle}" width="342" height="440" loading="lazy" fetchpriority="auto" onerror="this.remove()" />` : ''}<div class="number-bg"></div><div class="number">${i + 1}</div></div>`;
+    trk.appendChild(card);
+  });
+}
+
+function setHeroFallback() {
+  clearInterval(heroInterval);
+  const hero = $('#hero');
+  if (!hero) return;
+  hero.style.backgroundImage = 'radial-gradient(circle at 72% 18%, rgba(229,9,20,.28), transparent 32%), radial-gradient(circle at 20% 32%, rgba(255,255,255,.08), transparent 28%), linear-gradient(135deg, #190205 0%, #07070b 48%, #000 100%)';
+  hero.style.backgroundSize = 'cover';
+  hero.style.backgroundPosition = 'center top';
+  const overlay = document.getElementById('heroOverlay');
+  if (overlay) overlay.style.opacity = '0';
+}
 
 function applyLang() {
   const t = TR[lang];
@@ -147,19 +214,15 @@ function applyLang() {
 
 document.addEventListener('DOMContentLoaded', () => {
   applyLang();
+  updatePlanButtons();
 
   const toggleLang = () => {
     lang = lang === 'en' ? 'es' : 'en';
     localStorage.setItem('flix_lang', lang);
     applyLang();
+    updatePlanButtons();
     fetchTrending();
     fetchHero();
-    // Restore plan selection
-    const saved = localStorage.getItem('flix_plan');
-    if (saved && {basic:'b',standard:'s',premium:'p'}[saved]) {
-      $$('.btn-plan').forEach(b => { b.style.background = ''; b.textContent = `${TR[lang].pl.go} ${TR[lang].pl[{basic:'b',standard:'s',premium:'p'}[saved]]}`; });
-      $$(`.btn-plan[data-plan="${saved}"]`).forEach(b => { b.innerHTML = `&#10003; ${TR[lang].pl.ok}`; b.style.background = '#2e7d32'; });
-    }
   };
   $$('.lang-btn').forEach(b => b.addEventListener('click', toggleLang));
 
@@ -174,12 +237,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const ham = $('#hamburger'), mm = $('#mobileMenu');
   if (ham && mm) {
-    ham.addEventListener('click', () => {
-      const open = mm.classList.contains('open');
-      ham.classList.toggle('active'); mm.classList.toggle('open');
-      ham.setAttribute('aria-expanded', !open);
-    });
-    $$('a', mm).forEach(l => l.addEventListener('click', () => { ham.classList.remove('active'); mm.classList.remove('open'); ham.setAttribute('aria-expanded', 'false'); }));
+    const setMenuOpen = (open) => {
+      ham.classList.toggle('active', open);
+      mm.classList.toggle('open', open);
+      ham.setAttribute('aria-expanded', String(open));
+      mm.setAttribute('aria-hidden', String(!open));
+      document.body.classList.toggle('is-menu-open', open);
+    };
+
+    ham.addEventListener('click', () => setMenuOpen(!mm.classList.contains('open')));
+    mm.addEventListener('click', (e) => { if (e.target === mm) setMenuOpen(false); });
+    $$('a, button', mm).forEach(el => el.addEventListener('click', () => setMenuOpen(false)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenuOpen(false); });
   }
 
   const trk = $('#trendingTrack'), pv = $('.scroll-prev'), nx = $('.scroll-next');
@@ -187,11 +256,26 @@ document.addEventListener('DOMContentLoaded', () => {
   pv?.addEventListener('click', () => trk?.scrollBy({ left: -(sa() * 2), behavior: 'smooth' }));
   nx?.addEventListener('click', () => trk?.scrollBy({ left: sa() * 2, behavior: 'smooth' }));
 
-  $$('.faq-item').forEach(item => {
-    item.querySelector('.faq-question')?.addEventListener('click', () => {
+  $$('.faq-item').forEach((item, index) => {
+    const btn = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    if (!btn || !answer) return;
+
+    const answerId = `faq-answer-${index + 1}`;
+    answer.id = answerId;
+    btn.type = 'button';
+    btn.setAttribute('aria-controls', answerId);
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', () => {
       const open = item.classList.contains('active');
-      $$('.faq-item').forEach(i => i.classList.remove('active'));
-      if (!open) item.classList.add('active');
+      $$('.faq-item').forEach(i => {
+        i.classList.remove('active');
+        i.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
+      });
+      if (!open) {
+        item.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
     });
   });
 
@@ -219,22 +303,12 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#heroForm')?.addEventListener('submit', handleForm);
   $('#faqForm')?.addEventListener('submit', handleForm);
 
-  // Restore selected plan
-  const savedPlan = localStorage.getItem('flix_plan');
-  const planKey = {basic:'b',standard:'s',premium:'p'};
-  if (savedPlan && planKey[savedPlan]) {
-    $$(`.btn-plan[data-plan="${savedPlan}"]`).forEach(btn => {
-      btn.textContent = `✓ ${TR[lang].pl.ok}`;
-      btn.style.background = '#2e7d32';
-    });
-  }
-
   $$('.btn-plan').forEach(btn => {
     btn.addEventListener('click', function() {
       const plan = this.dataset.plan;
       localStorage.setItem('flix_plan', plan);
       $$('.btn-plan').forEach(b => {
-        const key = planKey[b.dataset.plan];
+        const key = PLAN_KEY[b.dataset.plan];
         b.textContent = `${TR[lang].pl.go} ${TR[lang].pl[key]}`;
         b.style.background = '';
       });
@@ -245,7 +319,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   $$('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
     const h = this.getAttribute('href');
-    if (h !== '#') { e.preventDefault(); $(h)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    if (!h || h === '#' || h === '#0') { e.preventDefault(); return; }
+    try {
+      const target = $(h);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } catch {
+      e.preventDefault();
+    }
   }));
 
   // Scroll progress
@@ -274,40 +357,40 @@ document.addEventListener('DOMContentLoaded', () => {
 // ─── TMDB ───
 async function fetchTrending() {
   const trk = $('#trendingTrack');
-  if (!trk || !trk.children.length) return;
+  if (!trk) return;
+
+  if (!TMDB_TOKEN) {
+    renderTrendingCards(getFallbackTrending());
+    return;
+  }
 
   try {
     const lp = lang === 'es' ? 'es-MX' : 'en-US';
     const r = await fetch(`https://api.themoviedb.org/3/trending/all/week?language=${lp}`, { headers: { Authorization: `Bearer ${TMDB_TOKEN}` } });
+    if (!r.ok) throw new Error(`TMDB responded ${r.status}`);
     const d = await r.json();
     const movies = d.results?.filter(item => item.poster_path).slice(0, 10);
-    if (!movies?.length) return;
-
-    trk.innerHTML = '';
-
-    movies.forEach((item, i) => {
-      const title = item.title || item.name;
-      const poster = item.poster_path ? `${TMDB_IMG}/w342${item.poster_path}` : null;
-      const rating = item.vote_average ? Number(item.vote_average).toFixed(1) : '—';
-      const colors = ['#e50914','#564d4d','#221f1f','#831010','#0f4c75','#4a0e4e','#1b4332','#5c2e16','#6b21a8','#1a1a2e'];
-
-      const c = document.createElement('div'); c.className = 'card'; c.dataset.rank = i + 1;
-      c.innerHTML = `<div class="card-inner">${poster ? `<img src="${poster}" alt="${title}" width="180" height="260" loading="lazy" fetchpriority="auto" onerror="this.style.background='${colors[i]}'" />` : ''}<div class="number-bg"></div><div class="number">${i + 1}</div></div>`;
-      trk.appendChild(c);
-    });
-
-  } catch (e) { console.warn('TMDB trending failed:', e?.message); }
+    if (!movies?.length) throw new Error('TMDB returned no poster results');
+    renderTrendingCards(movies);
+  } catch (e) {
+    console.warn('TMDB trending failed:', e?.message);
+    renderTrendingCards(getFallbackTrending());
+  }
 }
 
-let heroInterval;
-
 async function fetchHero() {
+  if (!TMDB_TOKEN) {
+    setHeroFallback();
+    return;
+  }
+
   try {
     const lp = lang === 'es' ? 'es-MX' : 'en-US';
     const r = await fetch(`https://api.themoviedb.org/3/trending/all/week?language=${lp}`, { headers: { Authorization: `Bearer ${TMDB_TOKEN}` } });
+    if (!r.ok) throw new Error(`TMDB responded ${r.status}`);
     const d = await r.json();
     const backdrops = d.results?.filter(item => item.backdrop_path).slice(0, 6) || [];
-    if (!backdrops.length) return;
+    if (!backdrops.length) throw new Error('TMDB returned no backdrop results');
 
     const hero = $('#hero');
     if (!hero) return;
@@ -339,7 +422,7 @@ async function fetchHero() {
     clearInterval(heroInterval);
     heroInterval = setInterval(() => {
       i = (i + 1) % backdrops.length;
-      const next = preload(i, () => {
+      preload(i, () => {
         overlay.style.backgroundImage = `url(${TMDB_IMG}/original${backdrops[i].backdrop_path})`;
         overlay.style.opacity = '1';
         setTimeout(() => {
@@ -348,5 +431,8 @@ async function fetchHero() {
         }, 1200);
       });
     }, 6000);
-  } catch (e) { console.warn('TMDB hero failed:', e?.message); }
+  } catch (e) {
+    console.warn('TMDB hero failed:', e?.message);
+    setHeroFallback();
+  }
 }

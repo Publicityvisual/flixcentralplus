@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Deploy Flixcentral+ to Firebase Hosting"""
-import subprocess, os, sys, json
+"""Build and deploy Flixcentral+ to Firebase Hosting."""
+import subprocess, os, sys
 
 def run(cmd, cwd=None):
     print(f"  → {' '.join(cmd)}")
@@ -23,11 +23,9 @@ print("\n[2/3] Deploying to Firebase...")
 run(["firebase", "deploy", "--only", "hosting"], cwd=os.path.dirname(__file__))
 
 # 3. Git Push
-print("\n[3/3] Pushing to GitHub...")
-run(["git", "add", "-A"], cwd=os.path.dirname(__file__))
-run(["git", "commit", "--allow-empty", "-m", "Deploy update"], cwd=os.path.dirname(__file__))
-run(["git", "push"], cwd=os.path.dirname(__file__))
+print("\n[3/3] Git push skipped.")
+print("      Review changes, then commit and push manually when ready.")
 
-print("\n✅ Deploy complete!")
+print("\nDeploy complete!")
 print("   GitHub Pages: https://publicityvisual.github.io/flixcentralplus/")
 print("   Firebase:     https://flixcentralplus-33dc5.web.app")

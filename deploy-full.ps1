@@ -1,5 +1,6 @@
 param(
-  [string]$Message = "Update $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
+  [string]$Message = "Update $(Get-Date -Format 'yyyy-MM-dd HH:mm')",
+  [switch]$Push
 )
 
 Write-Host "==================================" -ForegroundColor Cyan
@@ -16,12 +17,17 @@ Write-Host "`n[2/3] Deploying to Firebase..." -ForegroundColor Yellow
 firebase deploy --only hosting
 if ($LASTEXITCODE -ne 0) { Write-Host "Firebase deploy failed!" -ForegroundColor Red; exit 1 }
 
-# Step 3: Push to GitHub
-Write-Host "`n[3/3] Pushing to GitHub..." -ForegroundColor Yellow
-git add -A
-git commit -m "$Message"
-git push
-if ($LASTEXITCODE -ne 0) { Write-Host "Git push failed!" -ForegroundColor Red; exit 1 }
+# Step 3: Optional Git push
+if ($Push) {
+  Write-Host "`n[3/3] Pushing to GitHub..." -ForegroundColor Yellow
+  git add -A
+  git commit -m "$Message"
+  if ($LASTEXITCODE -ne 0) { Write-Host "Git commit failed!" -ForegroundColor Red; exit 1 }
+  git push
+  if ($LASTEXITCODE -ne 0) { Write-Host "Git push failed!" -ForegroundColor Red; exit 1 }
+} else {
+  Write-Host "`n[3/3] Git push skipped. Use -Push after reviewing changes." -ForegroundColor Yellow
+}
 
 Write-Host "`n==================================" -ForegroundColor Cyan
 Write-Host " Pipeline complete!" -ForegroundColor Green
