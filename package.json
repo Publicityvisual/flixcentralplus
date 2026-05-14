@@ -4,9 +4,16 @@
   "description": "Premium movies & series streaming platform",
   "private": true,
   "type": "module",
+  "packageManager": "npm@11.14.1",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "check": "npm run lint && npm run build",
+    "lint": "eslint js/main.js vite.config.js eslint.config.js",
+    "deploy": "python deploy.py",
     "preview": "vite preview"
   },
   "keywords": [
@@ -17,15 +24,12 @@
   ],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@tailwindcss/vite": "^4.3.0",
-    "tailwindcss": "^4.3.0",
-    "vite": "^8.0.12"
-  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@tailwindcss/vite": "^4.3.0",
     "eslint": "^10.3.0",
-    "firebase-tools": "^13.0.0",
-    "globals": "^17.6.0"
+    "globals": "^17.6.0",
+    "tailwindcss": "^4.3.0",
+    "vite": "^8.0.12"
   }
 }

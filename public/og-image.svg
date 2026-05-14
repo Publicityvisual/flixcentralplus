@@ -1,0 +1,22 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Flixcentral+ Premium Streaming</title>
+  <desc id="desc">Dark promotional image for Flixcentral+.</desc>
+  <rect width="1200" height="630" fill="#000000"/>
+  <rect x="48" y="48" width="1104" height="534" rx="36" fill="url(#g)" stroke="rgba(255,255,255,0.08)"/>
+  <circle cx="968" cy="172" r="130" fill="rgba(229,9,20,0.2)"/>
+  <circle cx="1020" cy="188" r="70" fill="rgba(255,255,255,0.08)"/>
+  <text x="96" y="218" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="900">Flixcentral<tspan fill="#e50914">+</tspan></text>
+  <text x="96" y="294" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="700">Premium Movies &amp; Series</text>
+  <text x="96" y="362" fill="#B3B3B3" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400">Watch everywhere. Cancel anytime.</text>
+  <g transform="translate(96 420)">
+    <rect width="220" height="64" rx="32" fill="#e50914"/>
+    <text x="110" y="42" text-anchor="middle" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">Get Started</text>
+  </g>
+  <defs>
+    <linearGradient id="g" x1="48" y1="48" x2="1148" y2="582" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101010"/>
+      <stop offset="0.52" stop-color="#050505"/>
+      <stop offset="1" stop-color="#150308"/>
+    </linearGradient>
+  </defs>
+</svg>

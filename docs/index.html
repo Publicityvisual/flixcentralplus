@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flixcentral+ - Premium Movies &amp; Series</title>
   <meta name="description" content="Watch unlimited movies and TV shows. New content daily. Cancel anytime.">
+  <link rel="canonical" href="https://flixcentralplus-33dc5.web.app/">
   <meta property="og:title" content="Flixcentral+ - Premium Streaming">
   <meta property="og:description" content="Unlimited movies, TV shows, and exclusive originals.">
+  <meta property="og:image" content="https://flixcentralplus-33dc5.web.app/og-image.svg">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://flixcentralplus-33dc5.web.app/">
+  <meta property="og:site_name" content="Flixcentral+">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Flixcentral+ - Premium Streaming">
   <meta name="twitter:description" content="Unlimited movies, TV shows, and exclusive originals.">
+  <meta name="twitter:image" content="https://flixcentralplus-33dc5.web.app/og-image.svg">
   <meta name="theme-color" content="#000000">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
@@ -23,11 +28,16 @@
   <link rel="preconnect" href="https://image.tmdb.org">
   <link rel="dns-prefetch" href="https://api.themoviedb.org">
   <link rel="dns-prefetch" href="https://image.tmdb.org">
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"></noscript>
-  <script type="module" crossorigin src="./assets/index-BiILw2dO.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BqY1Ooj5.css">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+    onload="this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap">
+  </noscript>
+  <link rel="modulepreload" href="./assets/main-DsanTWEp.js">
+  <script type="module" crossorigin src="./assets/index-FHelW6mC.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-L2n8SFeE.css">
 </head>
+
 <body>
   <div id="app">
     <div id="scrollProgress"></div>
@@ -35,40 +45,52 @@
     <!-- NAV -->
     <nav class="navbar" id="navbar" role="navigation" aria-label="Main">
       <div class="nav-container">
-        <a href="./" class="nav-logo" aria-label="Flixcentral+ home">Flixcentral<span class="logo-plus">+</span></a>
+        <a href="#hero" class="nav-logo" aria-label="Flixcentral+ home">Flixcentral<span class="logo-plus">+</span></a>
+        <div class="nav-links" aria-label="Section links">
+          <a class="nav-link" href="#trending" data-i18n="nav.t">Trending</a>
+          <a class="nav-link" href="#plans" data-i18n="nav.p">Plans</a>
+          <a class="nav-link" href="#features" data-i18n="nav.f">Features</a>
+          <a class="nav-link" href="#faq" data-i18n="nav.q">FAQ</a>
+        </div>
         <div class="nav-actions">
           <button class="btn btn-ghost lang-btn" aria-label="Switch language">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M2 12h20" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
             English
           </button>
           <button class="btn btn-primary" data-i18n="nav.si">Sign In</button>
         </div>
-        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button>
       </div>
     </nav>
-
-    <!-- MOBILE -->
-    <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile" aria-hidden="true">
-      <button class="btn btn-primary" data-i18n="nav.si">Sign In</button>
-    </div>
 
     <!-- HERO -->
     <section class="hero" id="hero">
       <div class="hero-bg"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <div class="hero-badge" data-i18n="hero.b">NEW SEASON</div>
-        <h1 class="hero-title"><span data-i18n="hero.t1">Unlimited</span><br><span class="text-gradient" data-i18n="hero.t2">Movies &amp; Series</span></h1>
-        <p class="hero-subtitle" data-i18n="hero.s">Watch everywhere. Cancel anytime. Your next binge starts here.</p>
+        <div class="hero-badge" data-i18n="hero.b">NOW STREAMING</div>
+        <h1 class="hero-title"><span data-i18n="hero.t1">Stories That</span><br><span class="text-gradient"
+            data-i18n="hero.t2">Move You</span></h1>
+        <p class="hero-subtitle" data-i18n="hero.s">Unlimited movies, series &amp; originals. Any screen. Any time.</p>
         <div class="hero-cta">
           <form class="hero-form" id="heroForm" novalidate>
-            <input type="email" class="hero-input" data-i18n="hero.pl" placeholder="Enter your email" required aria-label="Email address">
+            <input type="email" name="email" class="hero-input" data-i18n="hero.pl" placeholder="Enter your email"
+              required aria-label="Email address">
             <button type="submit" class="btn btn-hero" data-i18n="hero.c">
-              Get Started
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              Start Watching
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
             </button>
           </form>
-          <p class="hero-note" data-i18n="hero.n">Ready to watch? Enter your email to create or restart your membership.</p>
+          <p class="hero-note" data-i18n="hero.n">Join millions. No contracts. Cancel anytime.
+          </p>
         </div>
       </div>
     </section>
@@ -77,24 +99,51 @@
     <section class="section" id="trending">
       <div class="section-container">
         <div class="section-header">
-          <h2 class="section-title"><span class="top10-title"><span class="top10-badge">TOP 10</span><span data-i18n="tr.t">Trending Now</span></span></h2>
+          <h2 class="section-title"><span class="top10-title"><span class="top10-badge">TOP 10</span><span
+                data-i18n="tr.t">Trending Now</span></span></h2>
           <div class="section-controls">
-            <button class="scroll-btn scroll-prev" aria-label="Scroll left"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
-            <button class="scroll-btn scroll-next" aria-label="Scroll right"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+            <button class="scroll-btn scroll-prev" data-target="trendingTrack" aria-label="Scroll left"><svg width="20"
+                height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m15 18-6-6 6-6" />
+              </svg></button>
+            <button class="scroll-btn scroll-next" data-target="trendingTrack" aria-label="Scroll right"><svg width="20"
+                height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m9 18 6-6-6-6" />
+              </svg></button>
           </div>
         </div>
         <div class="carousel" role="region" aria-label="Trending movies">
           <div class="carousel-track" id="trendingTrack">
-            <div class="card skeleton"><div class="card-inner"></div></div>
-            <div class="card skeleton"><div class="card-inner"></div></div>
-            <div class="card skeleton"><div class="card-inner"></div></div>
-            <div class="card skeleton"><div class="card-inner"></div></div>
-            <div class="card skeleton"><div class="card-inner"></div></div>
-            <div class="card skeleton"><div class="card-inner"></div></div>
-            <div class="card skeleton"><div class="card-inner"></div></div>
-            <div class="card skeleton"><div class="card-inner"></div></div>
-            <div class="card skeleton"><div class="card-inner"></div></div>
-            <div class="card skeleton"><div class="card-inner"></div></div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -109,35 +158,83 @@
         </div>
         <div class="plans-grid">
           <div class="plan-card">
-            <div class="plan-header"><h3 data-i18n="pl.b">Basic</h3><div class="plan-price"><span class="price">$7.99</span><span class="period" data-i18n="pl.m">/month</span></div></div>
+            <div class="plan-header">
+              <h3 data-i18n="pl.b">Basic</h3>
+              <div class="plan-price"><span class="price">$7.99</span><span class="period"
+                  data-i18n="pl.m">/month</span></div>
+            </div>
             <ul class="plan-features">
-              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pl.f1">720p</span></li>
-              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pl.f2">1 device</span></li>
-              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pl.f3">Ad-free</span></li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg><span data-i18n="pl.f1">720p</span></li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg><span data-i18n="pl.f2">1 device</span></li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg><span data-i18n="pl.f3">Ad-free</span></li>
             </ul>
-            <button class="btn btn-plan" data-plan="basic">Get Started Basic</button>
+            <button class="btn btn-plan" data-plan="basic">Subscribe</button>
           </div>
           <div class="plan-card popular">
             <div class="plan-badge" data-i18n="pl.pop">Most Popular</div>
-            <div class="plan-header"><h3 data-i18n="pl.s">Standard</h3><div class="plan-price"><span class="price">$11.99</span><span class="period" data-i18n="pl.m">/month</span></div></div>
+            <div class="plan-header">
+              <h3 data-i18n="pl.s">Standard</h3>
+              <div class="plan-price"><span class="price">$11.99</span><span class="period"
+                  data-i18n="pl.m">/month</span></div>
+            </div>
             <ul class="plan-features">
-              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pl.s1">1080p</span></li>
-              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pl.s2">2 devices</span></li>
-              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pl.s3">Downloads</span></li>
-              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pl.s4">Ad-free</span></li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg><span data-i18n="pl.s1">1080p</span></li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg><span data-i18n="pl.s2">2 devices</span></li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg><span data-i18n="pl.s3">Downloads</span></li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg><span data-i18n="pl.s4">Ad-free</span></li>
             </ul>
-            <button class="btn btn-plan" data-plan="standard">Get Started Standard</button>
+            <button class="btn btn-plan" data-plan="standard">Subscribe</button>
           </div>
           <div class="plan-card">
-            <div class="plan-header"><h3 data-i18n="pl.p">Premium</h3><div class="plan-price"><span class="price">$15.99</span><span class="period" data-i18n="pl.m">/month</span></div></div>
+            <div class="plan-header">
+              <h3 data-i18n="pl.p">Premium</h3>
+              <div class="plan-price"><span class="price">$15.99</span><span class="period"
+                  data-i18n="pl.m">/month</span></div>
+            </div>
             <ul class="plan-features">
-              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pl.p1">4K + HDR</span></li>
-              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pl.p2">4 devices</span></li>
-              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pl.p3">Downloads</span></li>
-              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pl.p4">Dolby Atmos</span></li>
-              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pl.p5">Ad-free</span></li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg><span data-i18n="pl.p1">4K + HDR</span></li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg><span data-i18n="pl.p2">4 devices</span></li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg><span data-i18n="pl.p3">Downloads</span></li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg><span data-i18n="pl.p4">Dolby Atmos</span></li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg><span data-i18n="pl.p5">Ad-free</span></li>
             </ul>
-            <button class="btn btn-plan" data-plan="premium">Get Started Premium</button>
+            <button class="btn btn-plan" data-plan="premium">Subscribe</button>
           </div>
         </div>
       </div>
@@ -150,12 +247,180 @@
           <h2 class="section-title" data-i18n="feat.t">More Reasons to Join</h2>
         </div>
         <div class="features-grid">
-          <div class="feature-card"><div class="feature-mockup mockup-tv" aria-hidden="true"><div class="mockup-frame"><div class="mockup-row"></div><div class="mockup-row short"></div></div></div><h3 data-i18n="feat.c1t">Watch on your TV</h3><p data-i18n="feat.c1d">Smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.</p></div>
-          <div class="feature-card"><div class="feature-mockup mockup-download" aria-hidden="true"><div class="mockup-frame"><div class="mockup-row"></div><div class="mockup-row short"></div></div></div><h3 data-i18n="feat.c2t">Download &amp; go</h3><p data-i18n="feat.c2d">Save your favorites and always have something to watch, even offline.</p></div>
-          <div class="feature-card"><div class="feature-mockup mockup-devices" aria-hidden="true"><div class="mockup-frame"><div class="mockup-row"></div><div class="mockup-row short"></div></div></div><h3 data-i18n="feat.c3t">Watch everywhere</h3><p data-i18n="feat.c3d">Stream on your phone, tablet, laptop, and TV - all included.</p></div>
-          <div class="feature-card"><div class="feature-mockup mockup-noads" aria-hidden="true"><div class="mockup-frame"><div class="mockup-row"></div><div class="mockup-row short"></div></div></div><h3 data-i18n="feat.c4t">Zero ads</h3><p data-i18n="feat.c4d">Enjoy unlimited movies and shows without a single commercial interruption.</p></div>
-          <div class="feature-card"><div class="feature-mockup mockup-fresh" aria-hidden="true"><div class="mockup-frame"><div class="mockup-row"></div><div class="mockup-row short"></div></div></div><h3 data-i18n="feat.c5t">Fresh daily</h3><p data-i18n="feat.c5d">New movies, series, and exclusives added every single day.</p></div>
-          <div class="feature-card"><div class="feature-mockup mockup-family" aria-hidden="true"><div class="mockup-frame"><div class="mockup-row"></div><div class="mockup-row short"></div></div></div><h3 data-i18n="feat.c6t">Family ready</h3><p data-i18n="feat.c6d">Multiple profiles with PIN-protected parental controls for kids.</p></div>
+          <div class="feature-card feature-tv">
+            <div class="feature-visual" aria-hidden="true">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="15" rx="2" />
+                <path d="M17 2l-5 5-5-5" />
+              </svg>
+            </div>
+            <h3 data-i18n="feat.c1t">Watch on your TV</h3>
+            <p data-i18n="feat.c1d">Smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.</p>
+          </div>
+          <div class="feature-card feature-download">
+            <div class="feature-visual" aria-hidden="true">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+            </div>
+            <h3 data-i18n="feat.c2t">Download &amp; go</h3>
+            <p data-i18n="feat.c2d">Save your favorites and always have something to watch, even offline.</p>
+          </div>
+          <div class="feature-card feature-devices">
+            <div class="feature-visual" aria-hidden="true">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="2" width="16" height="20" rx="2" />
+                <line x1="12" y1="18" x2="12.01" y2="18" />
+              </svg>
+            </div>
+            <h3 data-i18n="feat.c3t">Watch everywhere</h3>
+            <p data-i18n="feat.c3d">Stream on your phone, tablet, laptop, and TV - all included.</p>
+          </div>
+          <div class="feature-card feature-noads">
+            <div class="feature-visual" aria-hidden="true">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+              </svg>
+            </div>
+            <h3 data-i18n="feat.c4t">Zero ads</h3>
+            <p data-i18n="feat.c4d">Enjoy unlimited movies and shows without a single commercial interruption.</p>
+          </div>
+          <div class="feature-card feature-fresh">
+            <div class="feature-visual" aria-hidden="true">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+            </div>
+            <h3 data-i18n="feat.c5t">Fresh daily</h3>
+            <p data-i18n="feat.c5d">New movies, series, and exclusives added every single day.</p>
+          </div>
+          <div class="feature-card feature-family">
+            <div class="feature-visual" aria-hidden="true">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+            <h3 data-i18n="feat.c6t">Family ready</h3>
+            <p data-i18n="feat.c6d">Multiple profiles with PIN-protected parental controls for kids.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POPULAR -->
+    <section class="section" id="popular">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title"><span data-i18n="pop.t">Popular Now</span></h2>
+          <div class="section-controls">
+            <button class="scroll-btn scroll-prev" data-target="popularTrack" aria-label="Scroll left"><svg width="20"
+                height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m15 18-6-6 6-6" />
+              </svg></button>
+            <button class="scroll-btn scroll-next" data-target="popularTrack" aria-label="Scroll right"><svg width="20"
+                height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m9 18 6-6-6-6" />
+              </svg></button>
+          </div>
+        </div>
+        <div class="carousel" role="region" aria-label="Popular movies">
+          <div class="carousel-track" id="popularTrack">
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOP RATED -->
+    <section class="section" id="toprated">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title"><span data-i18n="top.t">Top Rated</span></h2>
+          <div class="section-controls">
+            <button class="scroll-btn scroll-prev" data-target="topratedTrack" aria-label="Scroll left"><svg width="20"
+                height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m15 18-6-6 6-6" />
+              </svg></button>
+            <button class="scroll-btn scroll-next" data-target="topratedTrack" aria-label="Scroll right"><svg width="20"
+                height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m9 18 6-6-6-6" />
+              </svg></button>
+          </div>
+        </div>
+        <div class="carousel" role="region" aria-label="Top rated movies">
+          <div class="carousel-track" id="topratedTrack">
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+            <div class="card skeleton">
+              <div class="card-poster"></div>
+              <div class="card-title"></div>
+              <div class="card-year"></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -167,20 +432,80 @@
           <h2 class="section-title" data-i18n="faq.t">Frequently Asked Questions</h2>
         </div>
         <div class="faq-list">
-          <div class="faq-item"><button class="faq-question"><span data-i18n="faq.q1">What is Flixcentral+?</span><svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button><div class="faq-answer"><p data-i18n="faq.a1">Flixcentral+ is a streaming service that offers award-winning movies, TV shows, anime, documentaries, and more on thousands of internet-connected devices. Watch as much as you want, whenever you want, without a single commercial - all for one low monthly price.</p></div></div>
-          <div class="faq-item"><button class="faq-question"><span data-i18n="faq.q2">How much does it cost?</span><svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button><div class="faq-answer"><p data-i18n="faq.a2">Plans range from $7.99 to $15.99 a month. No extra costs, no contracts, no hidden fees. Cancel online anytime.</p></div></div>
-          <div class="faq-item"><button class="faq-question"><span data-i18n="faq.q3">Where can I watch?</span><svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button><div class="faq-answer"><p data-i18n="faq.a3">Watch instantly from any smartphone, tablet, computer, or TV with the Flixcentral+ app. Available on Smart TVs, game consoles, streaming players, and more.</p></div></div>
-          <div class="faq-item"><button class="faq-question"><span data-i18n="faq.q4">How do I cancel?</span><svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button><div class="faq-answer"><p data-i18n="faq.a4">No contracts, no commitments. Cancel your account online with just two clicks. No cancellation fees - start or stop anytime.</p></div></div>
-          <div class="faq-item"><button class="faq-question"><span data-i18n="faq.q5">What can I watch?</span><svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button><div class="faq-answer"><p data-i18n="faq.a5">An extensive library of feature films, documentaries, TV shows, anime, and exclusive Flixcentral+ Originals. Updated daily.</p></div></div>
-          <div class="faq-item"><button class="faq-question"><span data-i18n="faq.q6">Is Flixcentral+ good for kids?</span><svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button><div class="faq-answer"><p data-i18n="faq.a6">The Flixcentral+ Kids experience is included. Parents stay in control with PIN-protected parental controls and dedicated kids profiles.</p></div></div>
+          <div class="faq-item"><button class="faq-question"><span data-i18n="faq.q1">What is Flixcentral+?</span><svg
+                class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="m6 9 6 6 6-6" />
+              </svg></button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a1">Flixcentral+ is a streaming service that offers award-winning movies, TV shows,
+                anime, documentaries, and more on thousands of internet-connected devices. Watch as much as you want,
+                whenever you want, without a single commercial - all for one low monthly price.</p>
+            </div>
+          </div>
+          <div class="faq-item"><button class="faq-question"><span data-i18n="faq.q2">How much does it cost?</span><svg
+                class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="m6 9 6 6 6-6" />
+              </svg></button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a2">Plans range from $7.99 to $15.99 a month. No extra costs, no contracts, no hidden
+                fees. Cancel online anytime.</p>
+            </div>
+          </div>
+          <div class="faq-item"><button class="faq-question"><span data-i18n="faq.q3">Where can I watch?</span><svg
+                class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="m6 9 6 6 6-6" />
+              </svg></button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a3">Watch instantly from any smartphone, tablet, computer, or TV with the Flixcentral+
+                app. Available on Smart TVs, game consoles, streaming players, and more.</p>
+            </div>
+          </div>
+          <div class="faq-item"><button class="faq-question"><span data-i18n="faq.q4">How do I cancel?</span><svg
+                class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="m6 9 6 6 6-6" />
+              </svg></button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a4">No contracts, no commitments. Cancel your account online with just two clicks. No
+                cancellation fees - start or stop anytime.</p>
+            </div>
+          </div>
+          <div class="faq-item"><button class="faq-question"><span data-i18n="faq.q5">What can I watch?</span><svg
+                class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="m6 9 6 6 6-6" />
+              </svg></button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a5">An extensive library of feature films, documentaries, TV shows, anime, and exclusive
+                Flixcentral+ Originals. Updated daily.</p>
+            </div>
+          </div>
+          <div class="faq-item"><button class="faq-question"><span data-i18n="faq.q6">Is Flixcentral+ good for
+                kids?</span><svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="m6 9 6 6 6-6" />
+              </svg></button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a6">The Flixcentral+ Kids experience is included. Parents stay in control with
+                PIN-protected parental controls and dedicated kids profiles.</p>
+            </div>
+          </div>
         </div>
         <div class="faq-cta">
           <p data-i18n="faq.c">Ready to watch? Enter your email to create or restart your membership.</p>
           <form class="hero-form" id="faqForm" novalidate>
-            <input type="email" class="hero-input" data-i18n="hero.pl" placeholder="Enter your email" required aria-label="Email address">
+            <input type="email" class="hero-input" data-i18n="hero.pl" placeholder="Enter your email" required
+              aria-label="Email address">
             <button type="submit" class="btn btn-hero" data-i18n="hero.c">
-              Get Started
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              Start Watching
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
             </button>
           </form>
         </div>
@@ -190,22 +515,33 @@
     <!-- FOOTER -->
     <footer class="footer" id="footer" role="contentinfo">
       <div class="footer-container">
-        <p class="footer-phone" data-i18n="foot.ph">Questions? Call <a href="tel:+1234567890">1-234-567-890</a></p>
+        <p class="footer-phone" data-i18n="foot.ph">Questions? Call <a href="tel:+18003559999">1-800-355-9999</a></p>
         <div class="footer-grid">
-          <div class="footer-col"><a href="#faq">FAQ</a><a href="#">Investor Relations</a><a href="#">Privacy</a><a href="#">Speed Test</a></div>
-          <div class="footer-col"><a href="#">Help Center</a><a href="#">Jobs</a><a href="#">Cookie Preferences</a><a href="#">Legal Notices</a></div>
-          <div class="footer-col"><a href="#">Account</a><a href="#">Ways to Watch</a><a href="#">Corporate Information</a><a href="#">Only on Flixcentral+</a></div>
-          <div class="footer-col"><a href="#">Media Center</a><a href="#">Terms of Use</a><a href="#">Contact Us</a></div>
+          <div class="footer-col"><a href="#faq">FAQ</a><a href="#plans">Plans</a><a href="#features">Features</a><a
+              href="#trending">Top 10</a></div>
+          <div class="footer-col"><a href="#hero">Home</a><a href="#faq">Help Center</a><a
+              href="mailto:support@flixcentralplus.com">Contact Us</a><a href="#footer">About</a></div>
+          <div class="footer-col"><a href="#plans">Account</a><a href="#features">Ways to Watch</a><a
+              href="#trending">Corporate Information</a><a href="#faq">Only on Flixcentral+</a></div>
+          <div class="footer-col"><a href="#hero">Media Center</a><a href="#footer">Terms of Use</a><a
+              href="#footer">Privacy</a><a href="#footer">Speed Test</a></div>
         </div>
         <button class="btn btn-ghost lang-btn" aria-label="Switch language">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M2 12h20" />
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
           English
         </button>
         <p class="footer-brand" data-i18n="foot.br">Flixcentral+ &copy; 2026</p>
-        <p class="footer-brand" style="margin-top:8px;font-size:.75rem;color:#555" data-i18n="foot.tmdb">Powered by TMDB</p>
+        <p class="footer-brand" style="margin-top:8px;font-size:.75rem;color:#555" data-i18n="foot.tmdb">Powered by TMDB
+        </p>
       </div>
     </footer>
   </div>
 
 </body>
+
 </html>

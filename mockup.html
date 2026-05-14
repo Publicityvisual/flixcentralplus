@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Flixcentral+ Mockup</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#111;color:#fff;font-family:system-ui,sans-serif;padding:40px 24px}
+h1{font-size:2rem;margin-bottom:8px;color:#e50914}
+.sub{color:#888;margin-bottom:40px;font-size:1rem}
+h2{font-size:1.3rem;margin:40px 0 20px;color:#fff;border-left:3px solid #e50914;padding-left:12px}
+.preview{display:flex;gap:24px;overflow-x:auto;padding:8px 0 24px}
+.card{flex:0 0 auto;width:200px;position:relative;border-radius:18px;overflow:hidden;aspect-ratio:7/9;background:#1a1a1a;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.card img{width:100%;height:100%;object-fit:cover;display:block}
+.card .number-bg{position:absolute;top:0;left:0;width:34%;height:26%;background:linear-gradient(135deg,#b00808,#e50914,#ff3b3b);clip-path:polygon(0 0,100% 0,48% 100%,0 100%);z-index:3;box-shadow:4px 0 15px rgba(0,0,0,.4)}
+.card .number{position:absolute;top:6px;left:8px;z-index:4;color:#ff1e1e;font-size:clamp(24px,4vw,40px);font-weight:900;line-height:.9;-webkit-text-stroke:2.5px #000;text-shadow:0 2px 0 #000,0 4px 10px rgba(0,0,0,.75),0 0 8px rgba(255,35,35,.9),0 0 16px rgba(255,0,0,.65);user-select:none;pointer-events:none;font-family:'Inter',sans-serif}
+.card .overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(0,0,0,.8) 100%);pointer-events:none;z-index:2}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;max-width:900px}
+.feature{background:linear-gradient(145deg,rgba(26,26,26,.8),rgba(26,26,26,.2));border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:28px 24px;transition:all .3s}
+.feature:hover{border-color:rgba(229,9,20,.25);transform:translateY(-4px)}
+.feature h3{font-size:1.05rem;margin-bottom:8px}
+.feature p{font-size:.85rem;color:#999;line-height:1.6}
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px}
+.plan{background:linear-gradient(160deg,#1a1a1a,#141414);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:32px 24px;position:relative;text-align:center}
+.plan.popular{border-color:rgba(229,9,20,.4);background:linear-gradient(160deg,rgba(229,9,20,.06),#1a1a1a 60%)}
+.plan .badge{position:absolute;top:0;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#e50914,#ff3b3b);color:#fff;padding:5px 18px;border-radius:0 0 12px 12px;font-size:.7rem;font-weight:700;text-transform:uppercase}
+.plan h3{font-size:1.2rem;margin:16px 0 8px}
+.plan .price{font-size:2.2rem;font-weight:800;letter-spacing:-1px}
+.plan .period{color:#888;font-size:.9rem}
+.plan ul{list-style:none;margin:20px 0;text-align:left}
+.plan ul li{padding:8px 0;color:#b3b3b3;font-size:.9rem;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:10px}
+.plan ul li::before{content:'✓';color:#e50914;font-weight:700}
+.plan button{width:100%;padding:12px;background:linear-gradient(135deg,#e50914,#ff3b3b);color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer}
+.plan button:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(229,9,20,.3)}
+.faq{max-width:700px}
+.faq-item{background:rgba(26,26,26,.8);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:18px 22px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:all .2s}
+.faq-item:hover{border-color:rgba(229,9,20,.2)}
+.faq-item span{font-size:1rem;font-weight:500}
+.faq-item .icon{color:#e50914;font-size:1.2rem}
+.hero-preview{width:100%;aspect-ratio:21/9;background:linear-gradient(135deg,#1a0000,#000 50%,#0a0a1a);border-radius:18px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);margin-bottom:40px}
+.hero-preview::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,#000 0%,transparent 50%,rgba(0,0,0,.3) 100%)}
+.hero-preview .content{position:relative;z-index:2;text-align:center;padding-top:120px}
+.hero-preview .badge{display:inline-block;background:rgba(229,9,20,.12);border:1px solid rgba(229,9,20,.35);border-radius:100px;padding:6px 16px;font-size:.7rem;color:#e50914;letter-spacing:2px;margin-bottom:16px}
+.hero-preview h2{font-size:clamp(2rem,5vw,4rem);font-weight:900;line-height:1.05;border:none;padding:0;margin:0 0 12px}
+.hero-preview h2 span{background:linear-gradient(135deg,#e50914,#ff6b6b 40%,#ffd93d 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-preview p{color:#ccc;font-size:1.1rem;margin-bottom:20px}
+.hero-preview .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:linear-gradient(135deg,#e50914,#ff3b3b);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(229,9,20,.3)}
+.nav-preview{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:rgba(0,0,0,.8);border-radius:12px;margin-bottom:20px;position:sticky;top:20px;z-index:10;backdrop-filter:blur(20px)}
+.nav-preview .logo{font-size:1.4rem;font-weight:900}
+.nav-preview .logo span{color:#e50914}
+.nav-preview .actions{display:flex;gap:8px}
+.nav-preview .actions button{padding:7px 16px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff;font-size:.85rem;cursor:pointer}
+.nav-preview .actions .primary{background:#e50914;border-color:#e50914}
+@media(max-width:768px){.plan-grid{grid-template-columns:1fr}.preview{gap:12px}.card{width:160px}.hero-preview{aspect-ratio:4/5}.hero-preview .content{padding-top:80px}}
+</style>
+</head>
+<body>
+
+<h1>🎬 Flixcentral+ Mockup</h1>
+<p class="sub">Vista previa del diseño propuesto — aprueba cada sección antes de codificar</p>
+
+<!-- NAV -->
+<h2>Header</h2>
+<nav class="nav-preview">
+  <div class="logo">Flixcentral<span>+</span></div>
+  <div class="actions">
+    <button>🌐 English</button>
+    <button class="primary">Sign In</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<h2>Hero</h2>
+<div class="hero-preview" style="background-image:url(https://image.tmdb.org/t/p/original/ww1eIgtwfHWk5krwS0eSYDMj3Ue.jpg);background-size:cover;background-position:center">
+  <div class="content">
+    <div class="badge">NUEVA TEMPORADA</div>
+    <h2><span>Películas y Series<br>Ilimitadas</span></h2>
+    <p>Mira donde quieras. Cancela cuando quieras.</p>
+    <button class="btn">Comenzar →</button>
+  </div>
+</div>
+
+<!-- TOP 10 -->
+<h2>Top 10 — Trending</h2>
+<div class="preview">
+  <div class="card"><img src="https://image.tmdb.org/t/p/w342/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg" alt="" loading="lazy"><div class="number-bg"></div><div class="number">1</div><div class="overlay"></div></div>
+  <div class="card"><img src="https://image.tmdb.org/t/p/w342/j3Z3XktmWB1VhsS8iXN1RZQm3oa.jpg" alt="" loading="lazy"><div class="number-bg"></div><div class="number">2</div><div class="overlay"></div></div>
+  <div class="card"><img src="https://image.tmdb.org/t/p/w342/yzGU2qKV7bR3VYfTZ7TqCZyFxGv.jpg" alt="" loading="lazy"><div class="number-bg"></div><div class="number">3</div><div class="overlay"></div></div>
+  <div class="card"><img src="https://image.tmdb.org/t/p/w342/l11VQ1sn4NEwKpTVwLjOsQnU1B.jpg" alt="" loading="lazy"><div class="number-bg"></div><div class="number">4</div><div class="overlay"></div></div>
+  <div class="card"><img src="https://image.tmdb.org/t/p/w342/1E5baAaEse5UxLr6kS7Qx7gPxWt.jpg" alt="" loading="lazy"><div class="number-bg"></div><div class="number">5</div><div class="overlay"></div></div>
+</div>
+
+<!-- PLANS -->
+<h2>Planes</h2>
+<div class="plan-grid">
+  <div class="plan">
+    <h3>Básico</h3>
+    <div class="price">$7.99</div><div class="period">/mes</div>
+    <ul><li>720p</li><li>1 dispositivo</li><li>Sin anuncios</li></ul>
+    <button>Empezar Básico</button>
+  </div>
+  <div class="plan popular">
+    <div class="badge">Más Popular</div>
+    <h3>Estándar</h3>
+    <div class="price">$11.99</div><div class="period">/mes</div>
+    <ul><li>1080p</li><li>2 dispositivos</li><li>Descargas</li><li>Sin anuncios</li></ul>
+    <button>Empezar Estándar</button>
+  </div>
+  <div class="plan">
+    <h3>Premium</h3>
+    <div class="price">$15.99</div><div class="period">/mes</div>
+    <ul><li>4K + HDR</li><li>4 dispositivos</li><li>Descargas</li><li>Dolby Atmos</li><li>Sin anuncios</li></ul>
+    <button>Empezar Premium</button>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<h2>Características</h2>
+<div class="grid">
+  <div class="feature"><h3>📺 Mira en tu TV</h3><p>Smart TVs, PlayStation, Xbox, Chromecast, Apple TV y más.</p></div>
+  <div class="feature"><h3>⬇️ Descarga y disfruta</h3><p>Guarda tus favoritos y mira sin conexión.</p></div>
+  <div class="feature"><h3>🌍 Mira donde sea</h3><p>Teléfono, tablet, laptop y TV — todo incluido.</p></div>
+  <div class="feature"><h3>🛡️ Cero anuncios</h3><p>Sin interrupciones comerciales.</p></div>
+  <div class="feature"><h3>🕐 Nuevo cada día</h3><p>Estrenos agregados diariamente.</p></div>
+  <div class="feature"><h3>👨‍👩‍👧‍👦 Para toda la familia</h3><p>Perfiles con control parental.</p></div>
+</div>
+
+<!-- FAQ -->
+<h2>FAQ</h2>
+<div class="faq">
+  <div class="faq-item"><span>¿Qué es Flixcentral+?</span><span class="icon">+</span></div>
+  <div class="faq-item"><span>¿Cuánto cuesta?</span><span class="icon">+</span></div>
+  <div class="faq-item"><span>¿Dónde puedo ver?</span><span class="icon">+</span></div>
+  <div class="faq-item"><span>¿Cómo cancelo?</span><span class="icon">+</span></div>
+</div>
+
+<p style="margin-top:60px;padding-top:24px;border-top:1px solid #222;color:#555;font-size:.85rem;text-align:center">Flixcentral+ Mockup — Mayo 2026</p>
+
+</body>
+</html>

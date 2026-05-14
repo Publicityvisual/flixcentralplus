@@ -20,7 +20,7 @@ run(["npm", "run", "build"], cwd=os.path.dirname(__file__))
 
 # 2. Firebase Deploy
 print("\n[2/3] Deploying to Firebase...")
-run(["firebase", "deploy", "--only", "hosting"], cwd=os.path.dirname(__file__))
+run(["npx", "--yes", "firebase-tools@15.18.0", "deploy", "--only", "hosting"], cwd=os.path.dirname(__file__))
 
 # 3. Git Push
 print("\n[3/3] Git push skipped.")

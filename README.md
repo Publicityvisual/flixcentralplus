@@ -28,6 +28,7 @@ Plataforma de streaming moderna con TMDB API, soporte multi-idioma.
 npm install
 npm run dev     # Servidor de desarrollo en localhost:3000
 npm run build   # Build de producción en docs/
+npm run lint    # Validación estática de JS/config
 npm run preview # Vista previa del build
 ```
 
@@ -37,7 +38,7 @@ npm run preview # Vista previa del build
 
 **Firebase**:
 ```bash
-python deploy.py
+npm run deploy
 ```
 
 `deploy.py` construye y publica en Firebase. No hace commits ni push automáticamente; revisa cambios antes de subirlos al repo.
