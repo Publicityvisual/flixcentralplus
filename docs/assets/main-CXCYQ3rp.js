@@ -1,4 +1,17 @@
+import Lenis from 'lenis';
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
+import LazyLoad from 'vanilla-lazyload';
+
 const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
+
+// LazyLoad inteligente para imágenes
+const lazyLoader = new LazyLoad({
+  elements_selector: '[data-src]',
+  threshold: 200,
+  class_loaded: 'img-loaded'
+});
 
 // Manejo de error de imagen via data attributes (evita escapes en template literals)
 window._onImgError = function (el) {
@@ -181,14 +194,14 @@ function renderCards(trackId, items, showNumbers = false) {
     const poster = item.poster_path ? `${TMDB_IMG}/w154${item.poster_path}` : '';
     const color = FALLBACK_COLORS[i % FALLBACK_COLORS.length];
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = 'swiper-slide card';
     card.dataset.rank = i + 1;
     card.setAttribute('aria-label', `${i + 1}. ${rawTitle}`);
     const year = item.release_date?.slice(0, 4) || item.first_air_date?.slice(0, 4) || '';
     const rating = item.vote_average ? item.vote_average.toFixed(1) : '';
 
     const posterHtml = `<div class="card-poster">
-      ${poster ? `<img src="${poster}" alt="${safeTitle}" loading="lazy" fetchpriority="low" decoding="async" width="154" height="231" data-c="${color}" data-t="${safeTitle}" onerror="_onImgError(this)" />` : `<div class="poster-fallback" style="--poster-color:${color}"><span>${safeTitle}</span></div>`}
+      ${poster ? `<img data-src="${poster}" alt="${safeTitle}" width="154" height="231" data-c="${color}" data-t="${safeTitle}" onerror="_onImgError(this)" />` : `<div class="poster-fallback" style="--poster-color:${color}"><span>${safeTitle}</span></div>`}
       ${rating ? `<div class="card-rating"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>${rating}</div>` : ''}
       ${showNumbers ? `<div class="number-bg"></div><div class="number">${i + 1}</div>` : ''}
     </div>`;
@@ -198,6 +211,9 @@ function renderCards(trackId, items, showNumbers = false) {
     card.innerHTML = `<div class="card-inner">${posterHtml}${infoHtml}</div>`;
     trk.appendChild(card);
   });
+
+  // Actualizar vanilla-lazyload para nuevas imágenes
+  lazyLoader.update();
 }
 
 function setHeroFallback() {
@@ -236,6 +252,11 @@ document.addEventListener('DOMContentLoaded', () => {
   applyLang();
   updatePlanButtons();
 
+  // Lenis smooth scroll
+  const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+  function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+
   const toggleLang = () => {
     lang = lang === 'en' ? 'es' : 'en';
     storage.set('flix_lang', lang);
@@ -258,63 +279,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  $$('.scroll-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.dataset.target;
-      const trk = document.getElementById(targetId);
-      if (!trk) return;
-      const step = (() => {
-        const c = trk.querySelector('.card');
-        return c ? c.offsetWidth + 14 : 200;
-      })();
-      const dir = btn.classList.contains('scroll-next') ? 1 : -1;
-      trk.scrollBy({ left: dir * step * 2, behavior: 'smooth' });
+  // Swiper profesional para carousels
+  const swiperInstances = {};
+  const createSwiper = (id, prevBtn, nextBtn) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    swiperInstances[id] = new Swiper(el, {
+      modules: [Navigation, FreeMode],
+      slidesPerView: 'auto',
+      spaceBetween: 14,
+      freeMode: true,
+      grabCursor: true,
+      mousewheel: { forceToAxis: true },
+      navigation: {
+        prevEl: prevBtn,
+        nextEl: nextBtn
+      },
+      breakpoints: {
+        320: { slidesPerView: 2.2, spaceBetween: 10 },
+        480: { slidesPerView: 3.2, spaceBetween: 12 },
+        768: { slidesPerView: 4.2, spaceBetween: 14 },
+        1024: { slidesPerView: 5.5, spaceBetween: 14 },
+        1400: { slidesPerView: 6.5, spaceBetween: 14 }
+      },
+      watchSlidesProgress: true,
+      lazyPreloadPrevNext: 2
     });
-  });
+  };
 
-  // Swipe / drag scrolling for carousels (throttled for performance)
-  $$('.carousel-track').forEach(track => {
-    let isDown = false, startX, scrollLeft, rafId;
-    track.addEventListener('mousedown', e => {
-      isDown = true; track.style.scrollBehavior = 'auto'; startX = e.pageX; scrollLeft = track.scrollLeft;
-    });
-    track.addEventListener('mouseleave', () => { isDown = false; track.style.scrollBehavior = ''; });
-    track.addEventListener('mouseup', () => { isDown = false; track.style.scrollBehavior = ''; });
-    track.addEventListener('mousemove', e => {
-      if (!isDown) return;
-      e.preventDefault();
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => { track.scrollLeft = scrollLeft - (e.pageX - startX) * 1.5; });
-    });
-
-    let touchStartX = 0, touchStartY = 0, touchScrollLeft = 0, isHorizontal = false;
-    track.addEventListener('touchstart', e => {
-      if (e.touches.length > 1) return;
-      touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; touchScrollLeft = track.scrollLeft; isHorizontal = false; track.style.scrollBehavior = 'auto';
-    }, { passive: true });
-    track.addEventListener('touchmove', e => {
-      if (e.touches.length > 1) return;
-      const dx = e.touches[0].clientX - touchStartX, dy = e.touches[0].clientY - touchStartY;
-      if (!isHorizontal && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) isHorizontal = true;
-      if (isHorizontal) { e.preventDefault(); track.scrollLeft = touchScrollLeft - dx * 1.2; }
-    }, { passive: false });
-    track.addEventListener('touchend', () => { track.style.scrollBehavior = ''; }, { passive: true });
-  });
-
-  // Scroll indicators (gradientes dinámicos izquierdo/derecho)
-  $$('.carousel').forEach(carousel => {
-    const track = carousel.querySelector('.carousel-track');
-    if (!track) return;
-    const updateIndicators = () => {
-      const maxScroll = track.scrollWidth - track.clientWidth;
-      carousel.classList.toggle('has-scroll-left', track.scrollLeft > 4);
-      carousel.classList.toggle('has-scroll-right', track.scrollLeft < maxScroll - 4);
-    };
-    track.addEventListener('scroll', updateIndicators, { passive: true });
-    const ro = new ResizeObserver(updateIndicators);
-    ro.observe(track);
-    updateIndicators();
-  });
+  createSwiper('trendingSwiper', '#trending .scroll-prev', '#trending .scroll-next');
+  createSwiper('popularSwiper', '#popular .scroll-prev', '#popular .scroll-next');
+  createSwiper('topratedSwiper', '#toprated .scroll-prev', '#toprated .scroll-next');
 
   $$('.faq-item').forEach((item, index) => {
     const btn = item.querySelector('.faq-question');
@@ -383,26 +378,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = $(h);
       if (target) {
         e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        lenis.scrollTo(target, { offset: -68 });
       }
     } catch {
       e.preventDefault();
     }
   }));
 
-  // Scroll progress (throttled)
+  // Scroll progress con Lenis
   const prog = document.getElementById('scrollProgress');
   if (prog) {
-    let progTicking = false;
-    window.addEventListener('scroll', () => {
-      if (progTicking) return;
-      progTicking = true;
-      requestAnimationFrame(() => {
-        const h = document.documentElement.scrollHeight - window.innerHeight;
-        prog.style.width = h > 0 ? `${(window.scrollY / h) * 100}%` : '0';
-        progTicking = false;
-      });
-    }, { passive: true });
+    lenis.on('scroll', () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      prog.style.width = h > 0 ? `${(lenis.scroll / h) * 100}%` : '0';
+    });
   }
 
   // Staggered reveal
